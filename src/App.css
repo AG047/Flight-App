@@ -1,5 +1,5 @@
-
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -7,20 +7,13 @@ html, body {
 }
 * {
   box-sizing: border-box;
-  font-family: -apple-system,
-    BlinkMacSystemFont,
-    Arial,
-    Helvetica Neue,
-    Segoe UI,
-    Roboto,
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Arial, Helvetica Neue,
+    Segoe UI, Roboto, sans-serif;
 }
 
-
 #round-trip-start .row {
-  width:100% ;
+  width: 100%;
   gap: 15px;
- 
 }
 
 #round-trip-form-start {
@@ -29,9 +22,6 @@ html, body {
   gap: 15px; /* Space between inputs */
   width: 100%;
 }
-
-
-
 
 /* HeaderWebsite.css */
 
@@ -109,8 +99,7 @@ header {
   }
 }
 
-
-.sm-text{
+.sm-text {
   font-size: 1rem;
 }
 body,
@@ -118,9 +107,8 @@ html {
   margin: 0;
   padding: 0;
   width: 100%;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
 }
-
 
 /*********NAVBAR CSS***********/
 header {
@@ -155,8 +143,6 @@ header {
   justify-content: space-between;
   margin: 0px 200px 0 200px;
   padding-top: 20px;
-
-
 }
 
 select {
@@ -201,7 +187,8 @@ optgroup {
 }
 
 /******MAIN*****/
-main {}
+main {
+}
 
 .title-text {
   background-color: #002144;
@@ -233,7 +220,6 @@ ul.tabs {
   display: flex;
   gap: 50px;
   text-align: left;
-
 }
 
 .bookings {
@@ -262,8 +248,7 @@ a.panel {
   align-items: center;
   height: 200px;
   border-radius: 0 0 10px 10px;
-   box-sizing: content-box;
-
+  box-sizing: content-box;
 }
 
 .expanded {
@@ -289,8 +274,6 @@ a.panel {
   margin-top: 10px;
 }
 
-
-
 /* .passenger-form {
   display: block;
   position: relative;
@@ -307,9 +290,6 @@ a.panel {
   margin-left: 3%;
   margin-top: 15px;
   background-color: white;
-
-
-
 }
 
 #oneWayForm {
@@ -327,7 +307,7 @@ a.panel {
   font-size: 1rem;
 }
 
-.mleft-4{
+.mleft-4 {
   margin-left: 3rem;
 }
 
@@ -364,7 +344,7 @@ a.panel {
   padding: 16px 0.8px 16px 44px;
   font-size: 1rem;
 }
-.in-row{
+.in-row {
   max-width: 5%;
   margin-left: -6rem;
 }
@@ -379,29 +359,24 @@ a.panel {
   border-color: #ff4600;
 }
 
-#departure{
+#departure {
   width: 140%;
-  
 }
 
 #arrival {
   width: 140%;
-  
 }
 
 #Round-trip input[name="departure-date"] {
-  width : 100%;
-  
+  width: 100%;
 }
 
 #Round-trip input[name="return-date"] {
   width: 200px;
-  
 }
 
 #Round-trip input[name="travellers"] {
- margin-right: 5px;
-  
+  margin-right: 5px;
 }
 
 input {
@@ -412,7 +387,6 @@ input {
   display: block;
   margin-left: 45px;
   margin-top: 20px;
-
 }
 
 .search-airline {
@@ -421,12 +395,7 @@ input {
   outline: none;
   border-bottom: 1px solid black;
   font-size: 1rem;
-
 }
-
-
-
-
 
 /****HELPLINE****/
 @media (max-width: 1200px) {
@@ -456,7 +425,7 @@ input {
   }
 }
 .helpline {
-position: relative;
+  position: relative;
   height: 110px;
   width: 100%;
   /* Default width for smaller screens */
@@ -472,23 +441,21 @@ position: relative;
   border-radius: 10px;
   box-sizing: border-box;
 }
-
-
-
+.justify-content-around{
+  justify-content: space-around;
+}
+.justify-content-between{
+  justify-content: space-between;
+}
 .airlines {
   display: flex;
   gap: 100px;
-
-
 }
 
 /****TRIPS***/
 
-
-
 .route {
   color: #434752;
-  ;
 }
 
 .trip-text {
@@ -496,9 +463,6 @@ position: relative;
   margin-top: 55px;
   color: #73767f;
 }
-
-
-
 
 @media (max-width: 1200px) {
   .trips {
@@ -530,8 +494,7 @@ position: relative;
   }
 }
 
-
-.low-color{
+.low-color {
   color: green;
 }
 .trips {
@@ -554,7 +517,6 @@ position: relative;
   margin-bottom: 20px;
 }
 
-
 .dropdown-content {
   display: none;
   position: absolute;
@@ -572,7 +534,7 @@ position: relative;
 #departure-dropdown {
   top: 100%;
   /* Position below the departure input */
-  left: .5%;
+  left: 0.5%;
   width: 17%;
 }
 
@@ -582,7 +544,6 @@ position: relative;
   left: 19.5%;
   width: 17%;
 }
-
 
 .flight-form {
   background-color: white;
@@ -632,8 +593,6 @@ position: relative;
   padding: 0 20px;
   margin-bottom: 200px;
   justify-items: center;
-
-
 }
 
 .card {
@@ -681,100 +640,78 @@ footer {
   font-size: 1rem;
 }
 
-
 /**************MEDIA QUERYYY*************/
 @media screen and (max-width: 1800px) {
-
   #departure {
     height: 60px;
     width: 230px;
-
   }
 
   #arrival {
     height: 60px;
     width: 230px;
-
   }
 
   #departure-date {
     height: 60px;
     /* width: 130px; */
-
   }
 
   #return-date {
     height: 60px;
     /* width: 130px; */
-
   }
 
   #travellers {
     height: 60px;
     width: 100px;
-
   }
 
-  
-
-  .sm-text{
-    font-size: .7rem;
+  .sm-text {
+    font-size: 0.7rem;
   }
-
-
 }
 
-
-
 @media screen and (max-width: 1520px) {
-
-  .main-container{
+  .main-container {
     margin: 0 5%;
   }
   #departure {
     height: 60px;
     /* width: 150px; */
-
   }
 
   #arrival {
     height: 60px;
     /* width: 150px; */
-
   }
 
   #departure-date {
     height: 60px;
     /* width: 130px; */
-
   }
 
   #return-date {
     height: 60px;
     /* width: 130px; */
-
   }
 
   #travellers {
     height: 60px;
     /* width: 100px; */
-
   }
 
   #Search-flight {
     height: 60px;
-  
-    font-size: .8rem;
 
-
+    font-size: 0.8rem;
   }
 
   .flight-panel {
     width: 100%;
-    
   }
 
-  #round-trip-start{
+  #round-trip-start {
     width: 100%;
   }
 
@@ -782,29 +719,20 @@ footer {
     margin-left: 10px;
     width: 100%;
     gap: 5px;
-  } 
-
+  }
 }
 
-@media screen and (max-width: 1350px){
-  .main-container{
+@media screen and (max-width: 1350px) {
+  .main-container {
     margin: 0 2%;
   }
-
 }
 
-@media screen and (max-width: 1200px){
-   
+@media screen and (max-width: 1200px) {
   #round-trip-form-start .col-md-2 {
     flex: 1 1 calc(33.33% - 15px); /* Each input takes 1/3rd of the width */
   }
 }
-
-
-
-
-
-
 
 /********Flight css********/
 .filter-container {
@@ -816,7 +744,6 @@ footer {
   float: right;
   font-weight: 200;
 }
-
 
 .going {
   margin-bottom: 5px;
@@ -831,7 +758,6 @@ table {
   height: 20%;
   margin-left: 10px;
   background-color: white;
-
 }
 
 tr,
@@ -869,7 +795,6 @@ td {
   margin-top: 20px;
   background-color: white;
   border-radius: 15px;
-
 }
 
 .trip-time {
@@ -923,10 +848,6 @@ td {
 .flight-times {
   margin: 25px 0;
 }
-
-
-
-
 
 /*
 
@@ -998,32 +919,25 @@ td {
 
 }*/
 
-
 @media (max-width: 768px) {
-
-  header{
+  header {
     width: 100%;
   }
 
-  
   .passenger-form .row {
     gap: 10px;
-
   }
 
-    .passenger-form .col-md-2 {
+  .passenger-form .col-md-2 {
     flex-basis: 48%;
-
   }
 
-    .passenger-form .in-row {
+  .passenger-form .in-row {
     flex-basis: 100%;
 
     display: flex;
     justify-content: center;
   }
-
-
 }
 
 @media (max-width: 576px) {
@@ -1031,30 +945,26 @@ td {
     gap: 5px;
   }
 
-    .passenger-form .col-md-2 {
+  .passenger-form .col-md-2 {
     flex-basis: 100%;
 
     margin-bottom: 10px;
-
   }
 
-    .passenger-form button {
+  .passenger-form button {
     width: 100%;
 
     padding: 12px;
   }
-} */
-
- 
-
-.suggestions-dropdown::-webkit-scrollbar {
+}
+*/ .suggestions-dropdown::-webkit-scrollbar {
   width: 0px; /* Remove scrollbar for Webkit browsers */
   background: transparent; /* Optional: make scrollbar invisible */
 }
 
 .suggestions-dropdown:hover {
-     /* Enable scrolling when hovered */
-    color: rgb(68, 115, 154);
+  /* Enable scrolling when hovered */
+  color: rgb(68, 115, 154);
 }
 .suggestions-dropdown li {
   padding: 10px;
@@ -1070,42 +980,33 @@ td {
   background-color: #f0f0f0; /* Change background on hover */
 }
 
-
 .main-container-flight h2 {
   font-size: 16px;
   color: black;
   font-weight: 700;
-  
 }
 
 .main-container-flight h3 {
   font-size: 14px;
   color: black;
   font-weight: 700;
-
 }
 
-
-.stop-element{
-      display: flex;
-        align-items: baseline;
-        justify-content: space-between;
+.stop-element {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
 }
 .main-container-flight .stop {
   font-size: 14px;
   color: black;
   font-weight: 700;
-
 }
 .main-container-flight .amount {
   font-size: 14px;
   color: black;
   font-weight: 700;
-
 }
-
-
-
 
 /* Adjust button padding and font size */
 #Search-flight {
@@ -1129,7 +1030,6 @@ td {
   }
 }
 
-
 .main-container {
   width: 100%; /* Ensures full width */
   max-width: 1200px; /* Optional: sets a max width for larger screens */
@@ -1137,7 +1037,7 @@ td {
   padding: 0 20px; /* Optional: adds padding */
 }
 
-.title-text{
+.title-text {
   padding-left: 20px;
   box-sizing: border-box;
 }
@@ -1151,7 +1051,7 @@ td {
   padding-left: 20px; /* Aligns all divs to the same left position */
   box-sizing: border-box; /* Ensures padding doesn't affect total width */
 }
-.text2{
+.text2 {
   color: aliceblue;
   position: relative;
   font-size: 2.5rem;
@@ -1221,7 +1121,8 @@ td {
   margin-bottom: 8px;
 }
 
-.low, .high {
+.low,
+.high {
   font-size: 14px;
   color: #888;
 }
@@ -1490,7 +1391,7 @@ td {
 }
 
 .flight-tab a:hover::after {
-  content: ''; /* Create a pseudo-element for the underline */
+  content: ""; /* Create a pseudo-element for the underline */
   display: block; /* Make it a block element */
   width: 100%; /* Full width of the text */
   height: 4px; /* Height of the underline */
@@ -1500,7 +1401,6 @@ td {
   bottom: 0; /* Position at the bottom */
   margin-top: 5px; /* Margin between text and underline */
 }
-
 
 .header .number {
   font-size: 1.2rem; /* Adjust font size for better visibility */
@@ -1517,10 +1417,9 @@ td {
   }
 }
 
-
-.link-hover:hover{
-color: orange;
-cursor: pointer;
+.link-hover:hover {
+  color: orange;
+  cursor: pointer;
 }
 
 /* Basic style for the icon */
@@ -1551,4 +1450,3 @@ cursor: pointer;
 }
 
 /* Optional: Change text color on hover */
-
