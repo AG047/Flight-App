@@ -1,0 +1,139 @@
+/* FlightSearch CSS */
+
+/* Flight card styles */
+.flight-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.flight-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Sidebar Filter styles */
+.filter-container {
+  padding-right: 15px;
+}
+
+.filter-container .card {
+  border-radius: 8px;
+}
+
+.filter-container .card-header {
+  font-weight: bold;
+  background-color: #007bff;
+  color: white;
+}
+
+.filter-container .form-check {
+  margin-bottom: 10px;
+}
+
+.filter-container .form-range {
+  width: 100%;
+}
+
+.filter-container .range-output {
+  text-align: center;
+}
+
+/* Top fare table styles */
+.top-fare-table table {
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.top-fare-table th, .top-fare-table td {
+  text-align: center;
+  padding: 10px;
+}
+
+.top-fare-table th {
+  background-color: #007bff;
+  color: white;
+}
+
+.top-fare-table td {
+  background-color: white;
+  border: 1px solid #ddd;
+}
+
+.flight-info h5 {
+  margin: 0;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.flight-info .time {
+  font-weight: bold;
+}
+
+.flight-timings {
+  flex: 1;
+  text-align: center;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  padding: 0 20px;
+}
+
+.price-container {
+  flex: 1;
+  text-align: right;
+}
+
+.select-btn {
+  width: 100%;
+  background-color: #ff6200;
+  border: none;
+  color: white;
+  padding: 10px 0;
+  font-size: 1rem;
+}
+
+.text-muted {
+  color: #6c757d !important;
+}
+
+/* Responsive Styles */
+@media (max-width: 991px) {
+  .filter-container {
+    display: none;
+  }
+
+  .flight-info, .flight-timings, .price-container {
+    flex: 1;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .flight-card {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .price-container {
+    text-align: center;
+    margin-top: 15px;
+  }
+
+  .top-fare-table table {
+    width: 100%;
+    overflow-x: auto;
+    display: block;
+  }
+}
+
+@media (max-width: 767px) {
+  .flight-card {
+    padding: 10px;
+  }
+
+  .select-btn {
+    font-size: 0.9rem;
+  }
+}

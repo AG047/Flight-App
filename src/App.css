@@ -1,0 +1,1554 @@
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+* {
+  box-sizing: border-box;
+  font-family: -apple-system,
+    BlinkMacSystemFont,
+    Arial,
+    Helvetica Neue,
+    Segoe UI,
+    Roboto,
+    sans-serif;
+}
+
+
+#round-trip-start .row {
+  width:100% ;
+  gap: 15px;
+ 
+}
+
+#round-trip-form-start {
+  display: flex;
+  flex-wrap: wrap; /* Allows inputs to wrap into a new line when space is limited */
+  gap: 15px; /* Space between inputs */
+  width: 100%;
+}
+
+
+
+
+/* HeaderWebsite.css */
+
+header {
+  background-color: #fff;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.book-now {
+  font-size: 14px;
+  color: #555;
+}
+
+.number {
+  font-size: 18px;
+  color: #28a745;
+}
+
+.navbar-brand img {
+  max-width: 140px;
+  height: auto;
+}
+
+.nav-link {
+  font-size: 14px;
+  margin-right: 15px;
+}
+
+.dropdown-toggle {
+  font-size: 14px;
+}
+
+@media (max-width: 992px) {
+  .book-now {
+    font-size: 12px;
+  }
+
+  .number {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-brand img {
+    max-width: 100px; /* Smaller logo on mobile */
+  }
+
+  .nav-link {
+    font-size: 12px; /* Smaller font size for nav links */
+    margin-right: 10px; /* Reduced margin */
+  }
+
+  .number {
+    font-size: 14px; /* Smaller number */
+  }
+
+  .book-now {
+    font-size: 10px; /* Smaller text on very small screens */
+  }
+}
+
+@media (max-width: 576px) {
+  header {
+    padding: 10px 0; /* Less padding on small screens */
+  }
+
+  .d-flex {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: flex-start; /* Align items to start */
+  }
+
+  .book-now,
+  .number {
+    margin-bottom: 5px; /* Add margin between items */
+  }
+}
+
+
+.sm-text{
+  font-size: 1rem;
+}
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: #EEEEEE;
+}
+
+
+/*********NAVBAR CSS***********/
+header {
+  width: 100%;
+  margin: 0;
+  background-color: white;
+}
+
+.call-us {
+  height: 40px;
+  width: 346px;
+  border: solid 1px green;
+  border-radius: 30px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.book-now {
+  font-weight: 800;
+}
+
+.number {
+  margin-left: 3px;
+  color: green;
+  font-weight: 400;
+}
+
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  margin: 0px 200px 0 200px;
+  padding-top: 20px;
+
+
+}
+
+select {
+  height: 30px;
+  border: none;
+  width: 70px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+optgroup {
+  font-weight: 700;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navbar-left {
+  display: flex;
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+  gap: 20px;
+  font-size: 1.2rem;
+  align-items: center;
+}
+
+.help {
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.Sign-up {
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+/******MAIN*****/
+main {}
+
+.title-text {
+  background-color: #002144;
+  height: 240px;
+  width: 100%;
+  position: absolute;
+}
+
+.text {
+  color: aliceblue;
+  position: relative;
+  font-size: 2.5rem;
+  padding-top: 20px;
+  font-weight: 700;
+}
+
+ul.tabs {
+  font-weight: 700;
+}
+
+.main-container {
+  margin: 0 10%;
+}
+
+.panels {
+  color: black;
+  position: relative;
+  list-style-type: none;
+  display: flex;
+  gap: 50px;
+  text-align: left;
+
+}
+
+.bookings {
+  background-color: #eef2f6;
+  position: relative;
+  height: 48px;
+  display: flex;
+  top: 20px;
+  border-bottom: 1px solid black;
+  border-radius: 5px 5px 0 0;
+}
+
+a.panel {
+  font-weight: 800;
+  text-decoration: none;
+  color: black;
+  font-size: 1.3rem;
+}
+
+.flight-panel {
+  background-color: white;
+  position: relative;
+  width: 100%;
+  margin-top: 19px;
+  gap: 10px;
+  align-items: center;
+  height: 200px;
+  border-radius: 0 0 10px 10px;
+   box-sizing: content-box;
+
+}
+
+.expanded {
+  height: 350px;
+}
+
+.trip-type {
+  position: relative;
+  display: flex;
+  margin-top: 10px;
+}
+
+.trip-type-1 {
+  display: flex;
+  color: black;
+  gap: 10px;
+  margin-left: 45px;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+#coach {
+  margin-top: 10px;
+}
+
+
+
+/* .passenger-form {
+  display: block;
+  position: relative;
+  background-color: white;
+  gap: 500px;
+  width: 90%;
+  margin-right: 45px;
+  margin-left: 45px;
+  margin-top: 10px;
+
+} */
+
+#MultiWayForm {
+  margin-left: 3%;
+  margin-top: 15px;
+  background-color: white;
+
+
+
+}
+
+#oneWayForm {
+  margin-left: 3%;
+  margin-top: 15px;
+  display: none;
+}
+
+#departure {
+  height: 60px;
+  width: auto;
+  margin-right: 20px;
+  border: 1px solid #73767f;
+  padding: 16px 36px 16px 44px;
+  font-size: 1rem;
+}
+
+.mleft-4{
+  margin-left: 3rem;
+}
+
+#arrival {
+  height: 60px;
+  /* width: 320px; */
+  margin-right: 20px;
+  border: 1px solid #73767f;
+  padding: 16px 36px 16px 44px;
+  font-size: 1rem;
+}
+
+#departure-date {
+  height: 60px;
+  /* width: 200px; */
+  margin-right: 20px;
+  border: 1px solid #73767f;
+  padding: 16px 10px 16px 44px;
+  font-size: 1rem;
+}
+
+#return-date {
+  height: 60px;
+  /* width: 146px; */
+  border: 1px solid #73767f;
+  padding: 16px 10px 16px 44px;
+  font-size: 1rem;
+}
+
+#travellers {
+  height: 60px;
+  /* width: 200px; */
+  border: 1px solid #73767f;
+  padding: 16px 0.8px 16px 44px;
+  font-size: 1rem;
+}
+.in-row{
+  max-width: 5%;
+  margin-left: -6rem;
+}
+
+#Search-flight {
+  height: 60px;
+  width: 500%;
+  font-size: 0.5rem;
+  background-color: #ff4600;
+  color: white;
+  font-weight: 900;
+  border-color: #ff4600;
+}
+
+#departure{
+  width: 140%;
+  
+}
+
+#arrival {
+  width: 140%;
+  
+}
+
+#Round-trip input[name="departure-date"] {
+  width : 100%;
+  
+}
+
+#Round-trip input[name="return-date"] {
+  width: 200px;
+  
+}
+
+#Round-trip input[name="travellers"] {
+ margin-right: 5px;
+  
+}
+
+input {
+  border-radius: 5px;
+}
+
+.search {
+  display: block;
+  margin-left: 45px;
+  margin-top: 20px;
+
+}
+
+.search-airline {
+  display: inline;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid black;
+  font-size: 1rem;
+
+}
+
+
+
+
+
+/****HELPLINE****/
+@media (max-width: 1200px) {
+  .helpline {
+    max-width: 90%;
+    /* Adjust max-width for medium screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .helpline {
+    max-width: 100%;
+    /* Full width for smaller screens */
+    padding: 20px 10px;
+    /* Adjust padding for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .helpline {
+    height: auto;
+    /* Allow flexible height for very small screens */
+    flex-direction: column;
+    /* Stack items vertically */
+    padding: 16px 8px;
+    /* Adjust padding */
+  }
+}
+.helpline {
+position: relative;
+  height: 110px;
+  width: 100%;
+  /* Default width for smaller screens */
+  max-width: 100%;
+  /* Maximum width for larger screens */
+  background-color: white;
+  margin: 30px auto;
+  /* Centered horizontally */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 20px;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+
+
+.airlines {
+  display: flex;
+  gap: 100px;
+
+
+}
+
+/****TRIPS***/
+
+
+
+.route {
+  color: #434752;
+  ;
+}
+
+.trip-text {
+  text-align: center;
+  margin-top: 55px;
+  color: #73767f;
+}
+
+
+
+
+@media (max-width: 1200px) {
+  .trips {
+    max-width: 80%;
+  }
+}
+
+@media (max-width: 992px) {
+  .trips {
+    max-width: 70%;
+    padding: 20px 30px;
+    /* Adjust padding for smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .trips {
+    max-width: 80%;
+    padding: 15px 20px;
+    /* Adjust padding for mobile screens */
+  }
+}
+
+@media (max-width: 576px) {
+  .trips {
+    max-width: 100%;
+    padding: 10px 10px;
+    /* Adjust padding for very small screens */
+  }
+}
+
+
+.low-color{
+  color: green;
+}
+.trips {
+  display: flex;
+  justify-content: space-between;
+  width: 102%;
+  /* margin-top: 0!important; */
+  max-width: 102%;
+  padding: 20px 70px;
+  align-items: center;
+  margin: 0 auto;
+}
+.explore {
+  position: relative;
+  font-size: 1.25rem;
+  font-weight: 700;
+  width: 100%;
+  max-width: 80%;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ddd;
+  z-index: 1;
+  max-height: 150px;
+  /* Limit the height of the dropdown */
+  overflow-y: auto;
+  /* Add scroll if the dropdown is too tall */
+  width: 200px;
+  /* Match the width of the input */
+}
+
+#departure-dropdown {
+  top: 100%;
+  /* Position below the departure input */
+  left: .5%;
+  width: 17%;
+}
+
+#arrival-dropdown {
+  top: 100%;
+  /* Position below the arrival input */
+  left: 19.5%;
+  width: 17%;
+}
+
+
+.flight-form {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  height: 100px;
+  padding-top: 10px;
+}
+
+#modify-trip input[name="departure"] {
+  width: 400px;
+}
+
+#modify-trip input[name="arrival"] {
+  width: 400px;
+}
+
+#modify-trip input[name="departure-date"] {
+  width: 200px;
+}
+
+#modify-trip input[name="return-date"] {
+  width: 200px;
+  margin-right: 10px;
+}
+
+#modify-trip input[name="travellers"] {
+  margin-right: 5px;
+}
+
+/********explore trips*****/
+
+.explore-trips {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  /* 3 columns */
+  grid-template-rows: repeat(2, auto);
+  /* 2 rows */
+  row-gap: 0px;
+  /* Space between grid items */
+  background-color: white;
+  width: 100%;
+  max-width: 80%;
+  margin: 0 auto;
+
+  padding: 0 20px;
+  margin-bottom: 200px;
+  justify-items: center;
+
+
+}
+
+.card {
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+}
+
+/****Footer*****/
+footer {
+  background-color: #022d5c;
+  padding-top: 1rem;
+  height: 500px;
+}
+
+.footer-container {
+  margin: 0 50px 0 20px;
+}
+
+.social-media {
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  font-size: 1.5rem;
+  padding-top: 30px;
+  border-bottom: 1px solid #ccc;
+}
+
+.icons span {
+  margin-right: 10px;
+}
+
+.links {
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  font-size: 1rem;
+}
+
+.link-text {
+  list-style-type: none;
+  margin-bottom: 2px;
+  display: grid;
+  gap: 10px;
+  font-size: 1rem;
+}
+
+
+/**************MEDIA QUERYYY*************/
+@media screen and (max-width: 1800px) {
+
+  #departure {
+    height: 60px;
+    width: 230px;
+
+  }
+
+  #arrival {
+    height: 60px;
+    width: 230px;
+
+  }
+
+  #departure-date {
+    height: 60px;
+    /* width: 130px; */
+
+  }
+
+  #return-date {
+    height: 60px;
+    /* width: 130px; */
+
+  }
+
+  #travellers {
+    height: 60px;
+    width: 100px;
+
+  }
+
+  
+
+  .sm-text{
+    font-size: .7rem;
+  }
+
+
+}
+
+
+
+@media screen and (max-width: 1520px) {
+
+  .main-container{
+    margin: 0 5%;
+  }
+  #departure {
+    height: 60px;
+    /* width: 150px; */
+
+  }
+
+  #arrival {
+    height: 60px;
+    /* width: 150px; */
+
+  }
+
+  #departure-date {
+    height: 60px;
+    /* width: 130px; */
+
+  }
+
+  #return-date {
+    height: 60px;
+    /* width: 130px; */
+
+  }
+
+  #travellers {
+    height: 60px;
+    /* width: 100px; */
+
+  }
+
+  #Search-flight {
+    height: 60px;
+  
+    font-size: .8rem;
+
+
+  }
+
+  .flight-panel {
+    width: 100%;
+    
+  }
+
+  #round-trip-start{
+    width: 100%;
+  }
+
+  .passenger-form {
+    margin-left: 10px;
+    width: 100%;
+    gap: 5px;
+  } 
+
+}
+
+@media screen and (max-width: 1350px){
+  .main-container{
+    margin: 0 2%;
+  }
+
+}
+
+@media screen and (max-width: 1200px){
+   
+  #round-trip-form-start .col-md-2 {
+    flex: 1 1 calc(33.33% - 15px); /* Each input takes 1/3rd of the width */
+  }
+}
+
+
+
+
+
+
+
+/********Flight css********/
+.filter-container {
+  width: 20px;
+  padding: 0px 10px 10px 10px;
+}
+
+.amount {
+  float: right;
+  font-weight: 200;
+}
+
+
+.going {
+  margin-bottom: 5px;
+}
+
+.departing-from {
+  margin-left: 5px;
+}
+
+table {
+  width: 80%;
+  height: 20%;
+  margin-left: 10px;
+  background-color: white;
+
+}
+
+tr,
+td {
+  border: 0.1px solid #73767f;
+  text-align: center;
+}
+
+.parent {
+  display: flex;
+  margin-top: 20px;
+}
+
+.flight-table-container {
+  flex-basis: 75%;
+}
+
+.airline {
+  padding-top: 30px;
+}
+
+.airline-container {
+  display: flex;
+  gap: 150px;
+  margin-left: 20px;
+  margin-top: 30px;
+}
+
+.airline-panel {
+  height: 30%;
+  width: 80%;
+  display: flex;
+  gap: 10%;
+  margin-left: 11px;
+  margin-top: 20px;
+  background-color: white;
+  border-radius: 15px;
+
+}
+
+.trip-time {
+  display: flex;
+}
+
+.name {
+  margin-right: 8px;
+}
+
+.stops {
+  font-size: 1.2rem;
+  font-weight: 900;
+  margin-right: 8px;
+}
+
+.price-container {
+  padding: 10px 20px 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
+.price {
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+.info {
+  width: 270px;
+}
+
+.min {
+  color: blue;
+  font-weight: 900;
+}
+
+.price-btn {
+  height: 50px;
+  width: 180px;
+  background-color: #ff4600;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+}
+
+.flight-times {
+  margin: 25px 0;
+}
+
+
+
+
+
+/*
+
+.passenger-form {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.passenger-form input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.passenger-form input:focus {
+  border-color: #007bff;
+
+  outline: none;
+}
+
+.passenger-form button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.passenger-form button:hover {
+  background-color: #0056b3;
+}
+
+.passenger-form .sm-text {
+  font-size: 14px;
+}
+
+.passenger-form .mleft-4 {
+  margin-left: 4%;
+}
+
+
+.passenger-form .row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  align-items: center;
+  gap: 20px;
+
+}
+
+.passenger-form .col-md-2 {
+  flex: 1;
+
+  min-width: 150px;
+
+  max-width: 220px;
+
+}*/
+
+
+@media (max-width: 768px) {
+
+  header{
+    width: 100%;
+  }
+
+  
+  .passenger-form .row {
+    gap: 10px;
+
+  }
+
+    .passenger-form .col-md-2 {
+    flex-basis: 48%;
+
+  }
+
+    .passenger-form .in-row {
+    flex-basis: 100%;
+
+    display: flex;
+    justify-content: center;
+  }
+
+
+}
+
+@media (max-width: 576px) {
+  .passenger-form .row {
+    gap: 5px;
+  }
+
+    .passenger-form .col-md-2 {
+    flex-basis: 100%;
+
+    margin-bottom: 10px;
+
+  }
+
+    .passenger-form button {
+    width: 100%;
+
+    padding: 12px;
+  }
+} */
+
+ 
+
+.suggestions-dropdown::-webkit-scrollbar {
+  width: 0px; /* Remove scrollbar for Webkit browsers */
+  background: transparent; /* Optional: make scrollbar invisible */
+}
+
+.suggestions-dropdown:hover {
+     /* Enable scrolling when hovered */
+    color: rgb(68, 115, 154);
+}
+.suggestions-dropdown li {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee; /* Separate items visually */
+}
+
+.suggestions-dropdown li:last-child {
+  border-bottom: none; /* Remove the border from the last item */
+}
+
+.suggestions-dropdown li:hover {
+  background-color: #f0f0f0; /* Change background on hover */
+}
+
+
+.main-container-flight h2 {
+  font-size: 16px;
+  color: black;
+  font-weight: 700;
+  
+}
+
+.main-container-flight h3 {
+  font-size: 14px;
+  color: black;
+  font-weight: 700;
+
+}
+
+
+.stop-element{
+      display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+}
+.main-container-flight .stop {
+  font-size: 14px;
+  color: black;
+  font-weight: 700;
+
+}
+.main-container-flight .amount {
+  font-size: 14px;
+  color: black;
+  font-weight: 700;
+
+}
+
+
+
+
+/* Adjust button padding and font size */
+#Search-flight {
+  font-size: 14px;
+  padding: 0px 0px;
+  /* Default padding */
+}
+
+/* Responsive adjustments for button */
+@media (max-width: 768px) {
+  #Search-flight {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  #Search-flight {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
+
+
+.main-container {
+  width: 100%; /* Ensures full width */
+  max-width: 1200px; /* Optional: sets a max width for larger screens */
+  margin: 0 auto; /* Centers the container */
+  padding: 0 20px; /* Optional: adds padding */
+}
+
+.title-text{
+  padding-left: 20px;
+  box-sizing: border-box;
+}
+.text,
+.bookings,
+.flight-panel,
+.helpline,
+.explore,
+.trips {
+  margin: 20px 0; /* Adds vertical spacing */
+  padding-left: 20px; /* Aligns all divs to the same left position */
+  box-sizing: border-box; /* Ensures padding doesn't affect total width */
+}
+.text2{
+  color: aliceblue;
+  position: relative;
+  font-size: 2.5rem;
+  padding-top: 20px;
+  font-weight: 700;
+  padding: 20px 0;
+  padding-left: 20px;
+  box-sizing: border-box;
+}
+.trip-card {
+  width: 340px; /* Adjust width to make it more similar to the image */
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.trip-image {
+  width: 100%;
+  height: 200px; /* Increase height for a larger image */
+  object-fit: cover;
+}
+
+.trip-content {
+  padding: 20px;
+  text-align: center;
+}
+
+.city {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.date-range,
+.route {
+  font-size: 14px;
+  color: #555;
+}
+
+.price-section {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.price {
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+}
+
+.trip-type {
+  font-size: 14px;
+  color: #888;
+}
+
+.price-indicator {
+  background-color: #f8f8f8;
+  padding: 20px;
+  text-align: center;
+}
+
+.price-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.low, .high {
+  font-size: 14px;
+  color: #888;
+}
+
+.price-bar-line {
+  width: 100px; /* Adjust line width to create space between prices */
+  position: relative;
+  margin: 0 10px;
+}
+
+.bar {
+  display: block;
+  height: 5px;
+  background-color: #ff9900;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.trip-text {
+  font-size: 12px;
+  color: #555;
+}
+
+.trips-container {
+  width: 100%;
+  overflow-x: scroll;
+  display: flex;
+  justify-content: flex-start;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 10px;
+}
+
+.trips {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+}
+
+.trip-card {
+  flex: 0 0 calc(33% - 20px);
+  scroll-snap-align: start;
+  position: relative;
+  height: 100%; /* Full height */
+  max-width: 340px; /* Limit the width of each card */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Card shadow */
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.trip-card img {
+  width: 100%;
+  height: 200px; /* Fixed height for the image */
+  object-fit: cover; /* Ensures the image covers the card width */
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.trip-content {
+  padding: 16px;
+}
+
+.trip-content h3.city {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 0;
+}
+
+.trip-content .date-range,
+.trip-content .route {
+  font-size: 0.9em;
+  color: #777;
+  margin-top: 4px;
+}
+
+.trip-content .price-section {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.trip-content .price {
+  font-size: 1.4em;
+  font-weight: bold;
+}
+
+.trip-content .trip-type {
+  font-size: 0.9em;
+  color: #777;
+}
+
+.price-indicator {
+  padding: 16px;
+  border-top: 1px solid #eee;
+  text-align: center;
+}
+
+.price-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 8px 0;
+}
+
+.price-bar .price-bar-line {
+  flex-grow: 1;
+  margin: 0 10px;
+  height: 6px;
+  background: linear-gradient(to right, #00ff00, #ff4600); /* Gradient color */
+  border-radius: 3px;
+}
+
+.price-bar .low,
+.price-bar .high {
+  font-size: 0.9em;
+  color: #777;
+}
+
+.trip-text {
+  font-size: 0.85em;
+  color: #777;
+}
+/* Base styles for containers */
+.main-container-flight {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+/* Filter container styles */
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.filter-container > div {
+  /* flex: 1 1 300px; Flex-grow, flex-shrink, and base width */
+  margin: 10px;
+}
+
+/* Table styles */
+.flight-table-container {
+  overflow-x: auto; /* Allows horizontal scrolling on smaller screens */
+}
+
+.flight-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.flight-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+/* Airline panel styles */
+.airline-panel {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.airline {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .main-container-flight {
+    padding: 10px;
+  }
+
+  .filter-container {
+    flex-direction: column; /* Stack filter items on small screens */
+  }
+
+  .filter-container > div {
+    margin: 5px 0; /* Add spacing between stacked items */
+  }
+
+  .flight-table-container {
+    overflow-x: scroll; /* Enable horizontal scrolling for tables */
+  }
+
+  .airline {
+    flex-direction: column; /* Stack airline info on small screens */
+    align-items: flex-start; /* Align to the start */
+  }
+}
+
+@media (max-width: 480px) {
+  .price-container {
+    text-align: center; /* Center text on very small screens */
+  }
+
+  .price-btn {
+    width: 100%; /* Make buttons full width */
+  }
+}
+.airline-panel {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  margin: 10px; /* Space between panels */
+  border: 1px solid #ccc; /* Optional: add a border for visibility */
+}
+
+.airline {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping of containers */
+  justify-content: space-between; /* Even spacing between containers */
+}
+
+.airline-container {
+  flex: 1 1 100%; /* Default to full width on small screens */
+  box-sizing: border-box; /* Include padding and borders in width */
+  margin: 5px; /* Space between containers */
+  border: 1px solid #eee; /* Optional: border for clarity */
+}
+
+.price-container {
+  display: flex;
+  flex-direction: column; /* Stack price elements */
+  align-items: flex-end; /* Align items to start */
+  margin-top: 10px; /* Space above price container */
+  padding: 10px; /* Add padding for better visual separation */
+  border-top: 1px solid #ccc; /* Optional: add a separator line */
+  background-color: #f9f9f9; /* Background color for visibility */
+}
+
+/* Media queries for responsiveness */
+@media (min-width: 600px) {
+  .airline-container {
+    flex: 1 1 48%; /* Two items in a row on medium screens */
+  }
+}
+
+@media (min-width: 900px) {
+  .airline-container {
+    flex: 1 1 30%; /* Three items in a row on larger screens */
+  }
+}
+.panels {
+  list-style-type: none; /* Remove bullet points */
+  display: flex; /* Use flexbox for horizontal layout */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+}
+
+.flight-tab {
+  margin-top: 10px;
+  margin-right: 10px; /* Space between tabs */
+  position: relative; /* Position relative for pseudo-element */
+}
+
+.flight-tab a {
+  text-decoration: none; /* Remove underline from links */
+  color: #000; /* Link color */
+  padding-bottom: 5px; /* Space below the text for the underline */
+}
+
+.flight-tab a:hover {
+  color: #000; /* Ensure text color remains the same on hover */
+}
+
+.flight-tab a:hover::after {
+  content: ''; /* Create a pseudo-element for the underline */
+  display: block; /* Make it a block element */
+  width: 100%; /* Full width of the text */
+  height: 4px; /* Height of the underline */
+  background-color: blue; /* Underline color */
+  position: absolute; /* Position relative to the link */
+  left: 0; /* Align to the left */
+  bottom: 0; /* Position at the bottom */
+  margin-top: 5px; /* Margin between text and underline */
+}
+
+
+.header .number {
+  font-size: 1.2rem; /* Adjust font size for better visibility */
+}
+
+.book-now {
+  font-size: 1rem; /* Adjust font size */
+}
+
+/* Optional: Adjust padding for smaller screens */
+@media (max-width: 576px) {
+  .header .number {
+    font-size: 1.5rem; /* Increase number size on small screens */
+  }
+}
+
+
+.link-hover:hover{
+color: orange;
+cursor: pointer;
+}
+
+/* Basic style for the icon */
+.icon {
+  cursor: pointer;
+  position: relative; /* Position relative for pseudo-element */
+  display: inline-block; /* Ensure the element is inline-block */
+  text-decoration: none; /* Remove default underline */
+}
+
+/* Pseudo-element for the underline */
+.icon::after {
+  content: ""; /* Empty content */
+  position: absolute; /* Position absolute for the effect */
+  left: 0; /* Start from the left */
+  bottom: 0; /* Align to the bottom */
+  width: 75%; /* Full width */
+  height: 1px; /* Underline height */
+  background: #ffffff; /* Color of the underline */
+  transform: scaleX(0); /* Start with scaleX(0) to hide it */
+  transition: transform 0.3s ease; /* Smooth scaling */
+}
+
+/* On hover, expand the underline */
+.icon:hover::after {
+  transform: scaleX(1); /* Expand to full width */
+  cursor: pointer;
+}
+
+/* Optional: Change text color on hover */
+
