@@ -18,8 +18,14 @@ import { APIKEY } from "./APIKEY";
 
 const FlightSearch = () => {
   const location = useLocation();
-  const { departure, arrival, departureDate, returnDate, travellers } =
-    location.state || {};
+  const {
+    departure,
+    arrival,
+    departureDate,
+    returnDate,
+    travellers,
+    isReturnDatePresent,
+  } = location.state || {};
 
   const initialValues = {
     departure,
@@ -27,25 +33,34 @@ const FlightSearch = () => {
     departureDate,
     returnDate,
     travellers,
+    isReturnDatePresent,
   };
   const [flights, setFlights] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (departure && arrival && departureDate && returnDate) {
+    if (departure && arrival && departureDate) {
       const fetchFlights = async () => {
         setLoading(true);
         try {
-          const apiUrl = `https://api.flightapi.io/roundtrip/66f1b2022110d7ada60a19c5/${
-            departure.split(" - ")[0]
-          }/${
-            arrival.split(" - ")[0]
-          }/${departureDate}/${returnDate}/${travellers}/0/0/Economy/USD`;
-
+          let apiUrl;
+          if (initialValues?.isReturnDatePresent) {
+            apiUrl = `https://api.flightapi.io/roundtrip/${APIKEY}/${
+              departure.split(" - ")[0]
+            }/${
+              arrival.split(" - ")[0]
+            }/${departureDate}/${returnDate}/${travellers}/0/0/Economy/USD`;
+          } else {
+            apiUrl = `https://api.flightapi.io/onewaytrip/${APIKEY}/${
+              departure.split(" - ")[0]
+            }/${
+              arrival.split(" - ")[0]
+            }/${departureDate}/${travellers}/0/0/Economy/USD`;
+          }
+          console.log(apiUrl, "apiUrl");
           const response = await fetch(apiUrl);
           const data = await response.json();
           setFlights(data);
-          console.log(data);
         } catch (error) {
           console.error("Error fetching flight data:", error);
         } finally {
@@ -62,7 +77,10 @@ const FlightSearch = () => {
       <main>
         <Container fluid>
           <div className="mb-5">
-            <RoundTrip initialValues={initialValues} />
+            <RoundTrip
+              initialValues={initialValues}
+              isReturnDatePresent={initialValues.isReturnDatePresent}
+            />
           </div>
 
           <Row>
@@ -195,7 +213,6 @@ const FlightSearch = () => {
                     const itinerary = flights?.itineraries.find((itin) =>
                       itin.leg_ids.includes(leg.id)
                     );
-                    console.log(itinerary, "itineraryitinerary");
 
                     // Format departure and arrival times
                     const departureTime = new Date(

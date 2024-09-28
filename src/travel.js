@@ -64,6 +64,7 @@ const TravelApp = () => {
                       id={`option${index + 1}`}
                       name="choice"
                       value={type}
+                      defaultChecked={tripType === type}
                       onClick={() => showForm(type)}
                     />
                     <label htmlFor={`option${index + 1}`}>{type}</label>
@@ -72,7 +73,7 @@ const TravelApp = () => {
               </form>
             </div>
             {tripType === "Round-trip" && <RoundTrip />}
-            {tripType === "One Way" && <RoundTrip />}
+            {tripType === "One Way" && <RoundTrip isReturnDatePresent={false}/>}
             {tripType === "Multi-City" && <RoundTrip />}
           </div>
           <div className="helpline">

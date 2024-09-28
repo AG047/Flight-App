@@ -11,7 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { APIKEY } from "./APIKEY";
 
-const RoundTrip = ({ initialValues }) => {
+const RoundTrip = ({ initialValues, isReturnDatePresent = true }) => {
   const [departure, setDeparture] = useState(initialValues?.departure || "");
   const [arrival, setArrival] = useState(initialValues?.arrival || "");
   const [departureDate, setDepartureDate] = useState(
@@ -42,8 +42,10 @@ const RoundTrip = ({ initialValues }) => {
     const timer = setTimeout(async () => {
       if (type === "departure") {
         setLoadingDeparture(true); // Set loading to true for departure
+        setFilteredDepartures([]);
       } else {
         setLoadingArrival(true); // Set loading to true for arrival
+        setFilteredArrivals([]);
       }
       try {
         const airportResponse = await fetch(
@@ -81,7 +83,7 @@ const RoundTrip = ({ initialValues }) => {
   const handleDepartureChange = (e) => {
     const input = e.target.value;
     setDeparture(input);
-    if (input.length > 1) {
+    if (input.length > 0) {
       debounceFetch(input, "departure");
     } else {
       setFilteredDepartures([]);
@@ -123,6 +125,7 @@ const RoundTrip = ({ initialValues }) => {
         departureDate,
         returnDate,
         travellers,
+        isReturnDatePresent,
       },
     });
   };
@@ -299,34 +302,36 @@ const RoundTrip = ({ initialValues }) => {
         </div>
 
         {/* Return Date */}
-        <div className="position-relative" style={{ flex: "1 1 150px" }}>
-          <FontAwesomeIcon
-            icon={faCalendar}
-            className="position-absolute"
-            style={{
-              left: "12px",
-              top: "50%",
-              transform: "translateY(-50%)",
-              color: "#333",
-            }}
-          />
-          <input
-            type="date"
-            required
-            value={returnDate}
-            onChange={(e) => setReturnDate(e.target.value)}
-            className="form-control"
-            style={{
-              paddingLeft: "40px",
-              paddingRight: "10px",
-              minHeight: "48px",
-              borderRadius: "8px",
-              fontSize: "16px",
-              fontWeight: "500",
-              borderColor: "#ccc",
-            }}
-          />
-        </div>
+        {isReturnDatePresent && (
+          <div className="position-relative" style={{ flex: "1 1 150px" }}>
+            <FontAwesomeIcon
+              icon={faCalendar}
+              className="position-absolute"
+              style={{
+                left: "12px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                color: "#333",
+              }}
+            />
+            <input
+              type="date"
+              required={isReturnDatePresent}
+              value={returnDate}
+              onChange={(e) => setReturnDate(e.target.value)}
+              className="form-control"
+              style={{
+                paddingLeft: "40px",
+                paddingRight: "10px",
+                minHeight: "48px",
+                borderRadius: "8px",
+                fontSize: "16px",
+                fontWeight: "500",
+                borderColor: "#ccc",
+              }}
+            />
+          </div>
+        )}
 
         {/* Travellers */}
         <div className="position-relative" style={{ flex: "1 1 120px" }}>
