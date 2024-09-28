@@ -138,7 +138,7 @@ const RoundTrip = ({ initialValues, isReturnDatePresent = true }) => {
         style={{ gap: "6px", marginTop: "20px", padding: "0 10px" }}
       >
         {/* Departure */}
-        <div className="position-relative" style={{ flex: "1 1 150px" }}>
+        <div className="position-relative">
           <FontAwesomeIcon
             icon={faLocationDot}
             className="position-absolute"
@@ -209,7 +209,7 @@ const RoundTrip = ({ initialValues, isReturnDatePresent = true }) => {
         </div>
 
         {/* Arrival */}
-        <div className="position-relative" style={{ flex: "1 1 150px" }}>
+        <div className="position-relative">
           <FontAwesomeIcon
             icon={faLocationDot}
             className="position-absolute"
@@ -272,7 +272,7 @@ const RoundTrip = ({ initialValues, isReturnDatePresent = true }) => {
         </div>
 
         {/* Departure Date */}
-        <div className="position-relative" style={{ flex: "1 1 150px" }}>
+        <div className="position-relative">
           <FontAwesomeIcon
             icon={faCalendar}
             className="position-absolute"
@@ -303,7 +303,7 @@ const RoundTrip = ({ initialValues, isReturnDatePresent = true }) => {
 
         {/* Return Date */}
         {isReturnDatePresent && (
-          <div className="position-relative" style={{ flex: "1 1 150px" }}>
+          <div className="position-relative">
             <FontAwesomeIcon
               icon={faCalendar}
               className="position-absolute"
@@ -334,7 +334,7 @@ const RoundTrip = ({ initialValues, isReturnDatePresent = true }) => {
         )}
 
         {/* Travellers */}
-        <div className="position-relative" style={{ flex: "1 1 120px" }}>
+        <div className="position-relative">
           <FontAwesomeIcon
             icon={faUser}
             className="position-absolute"

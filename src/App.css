@@ -269,9 +269,9 @@ a.panel {
   position: relative;
   width: 100%;
   margin-top: 19px;
-  gap: 10px;
+  /* gap: 10px; */
   align-items: center;
-  height: 200px;
+  /* height: 200px; */
   border-radius: 0 0 10px 10px;
   box-sizing: content-box;
 }
@@ -451,7 +451,7 @@ input {
 }
 .helpline {
   position: relative;
-  height: 110px;
+  /* height: 110px; */
   width: 100%;
   /* Default width for smaller screens */
   max-width: 100%;
@@ -630,7 +630,6 @@ input {
 footer {
   background-color: #022d5c;
   padding-top: 1rem;
-  height: 500px;
 }
 
 .footer-container {
@@ -1087,7 +1086,7 @@ td {
   box-sizing: border-box;
 }
 .trip-card {
-  width: 340px; /* Adjust width to make it more similar to the image */
+  min-width: 310px;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -1190,8 +1189,6 @@ td {
   flex: 0 0 calc(33% - 20px);
   scroll-snap-align: start;
   position: relative;
-  height: 100%; /* Full height */
-  max-width: 340px; /* Limit the width of each card */
   border-radius: 10px; /* Rounded corners */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Card shadow */
   background-color: #fff;
