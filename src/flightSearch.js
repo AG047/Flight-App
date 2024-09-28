@@ -193,165 +193,171 @@ const FlightSearch = () => {
                 </Table>
               </div>
               <Row>
-                {loading ? ( // Conditional rendering based on loading state
+                {loading ? ( // Show loader if flights are still loading
                   <Col sm={12} className="text-center">
                     <div className="loader"></div>
                   </Col>
-                ) : flights?.legs?.length > 0 ? (
-                  flights?.legs?.map((leg, index) => {
-                    // Find the origin and destination place codes
-                    const originPlace = flights?.places.find(
-                      (place) => place.id === leg.origin_place_id
-                    );
-                    const destinationPlace = flights?.places.find(
-                      (place) => place.id === leg.destination_place_id
+                ) : flights?.itineraries?.length > 0 ? (
+                  flights.itineraries.map((itinerary, index) => {
+                    // Fetch legs for the current itinerary
+                    const itineraryLegs = itinerary.leg_ids.map((legId) =>
+                      flights.legs.find((leg) => leg.id === legId)
                     );
 
-                    // Find the carrier name
-                    const carrier = flights?.carriers.find(
-                      (carrier) => carrier.id === leg.marketing_carrier_ids[0]
-                    );
+                    // Fetch the price for this itinerary
+                    const priceAmount = itinerary.cheapest_price.amount;
 
-                    // Find the corresponding itinerary price
-                    const itinerary = flights?.itineraries.find((itin) =>
-                      itin.leg_ids.includes(leg.id)
-                    );
-
-                    // Format departure and arrival times
-                    const departureTime = new Date(
-                      leg.departure
-                    ).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      hour12: true,
-                    });
-                    const arrivalTime = new Date(
-                      leg.arrival
-                    ).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      hour12: true,
-                    });
-
-                    // Calculate the price to display
-                    const priceAmount = itinerary
-                      ? itinerary.cheapest_price.amount
-                      : "N/A";
-
-                    const formatDuration = (duration) => {
-                      if (!duration) return "N/A"; // Handle case where duration is not provided
-
-                      const hours = Math.floor(duration / 60); // Calculate hours
-                      const minutes = duration % 60; // Calculate remaining minutes
-                      return `${hours} hour${
-                        hours !== 1 ? "s" : ""
-                      } ${minutes} minute${minutes !== 1 ? "s" : ""}`;
-                    };
-
-                    const stopovers = leg.stop_ids
-                      .map((stopIdArray) => {
-                        const stopId = stopIdArray[0]; // Get the first stop id from each array
-                        return flights.places.find(
-                          (place) => place.id === stopId
-                        );
-                      })
-                      .filter(Boolean); // Filter out any undefined values
                     return (
                       <Col sm={12} className="mb-4" key={index}>
-                        <Card className="flight-card shadow-sm">
-                          <Card.Body className="d-flex justify-content-between align-items-center">
-                            {/* Flight Info */}
-                            <div className="flight-info d-flex">
-                              <div className="blueLine"></div>
-                              <div>
-                                <h5>
-                                  {carrier ? carrier.name : "Unknown Carrier"}
-                                </h5>
-                                <p className="text-muted">
-                                  {leg.stop_count === 0
-                                    ? "Non Stop"
-                                    : `${leg.stop_count} Stop`}
-                                </p>
-                                <p>{formatDuration(leg?.duration)}</p>
-                                {stopovers.length > 0 && (
-                                  <div>
-                                    {stopovers.slice(0, 5).map(
-                                      (
-                                        stop,
-                                        index // Limit to 5 stops
-                                      ) => (
-                                        <p key={index} style={{ margin: "0",fontSize:"14px" }}>
-                                          Stop {index + 1}: {stop.display_name}{" "}
-                                          ({stop.display_code})
-                                        </p>
-                                      )
-                                    )}
+                        <Card
+                          className="flight-card shadow-sm flexFlightCard"
+                        >
+                          <div style={{width:"100%"}}>
+                            {/* Render each leg in the itinerary */}
+                            {itineraryLegs.map((leg, legIndex) => {
+                              const originPlace = flights?.places.find(
+                                (place) => place.id === leg.origin_place_id
+                              );
+                              const destinationPlace = flights?.places.find(
+                                (place) => place.id === leg.destination_place_id
+                              );
+                              const carrier = flights?.carriers.find(
+                                (carrier) =>
+                                  carrier.id === leg.marketing_carrier_ids[0]
+                              );
+                              const departureTime = new Date(
+                                leg.departure
+                              ).toLocaleTimeString([], {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                hour12: true,
+                              });
+                              const arrivalTime = new Date(
+                                leg.arrival
+                              ).toLocaleTimeString([], {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                hour12: true,
+                              });
+                              const formatDuration = (duration) => {
+                                const hours = Math.floor(duration / 60);
+                                const minutes = duration % 60;
+                                return `${hours}h ${minutes}m`;
+                              };
+                              const stopovers = leg.stop_ids
+                                .map((stopIdArray) => {
+                                  const stopId = stopIdArray[0];
+                                  return flights.places.find(
+                                    (place) => place.id === stopId
+                                  );
+                                })
+                                .filter(Boolean);
+
+                              return (
+                                <Card.Body
+                                  className="d-flex justify-content-between align-items-center"
+                                  key={legIndex}
+                                >
+                                  {/* Flight Info */}
+                                  <div className="flight-info" style={{display:"flex"}}>
+                                    <div className="blueLine"></div>
+                                    <div>
+                                      <h5>
+                                        {carrier
+                                          ? carrier.name
+                                          : "Unknown Carrier"}
+                                      </h5>
+                                      <p className="text-muted">
+                                        {leg.stop_count === 0
+                                          ? "Non Stop"
+                                          : `${leg.stop_count} Stop`}
+                                      </p>
+                                      <p>{formatDuration(leg?.duration)}</p>
+                                      {stopovers.length > 0 && (
+                                        <div>
+                                          {stopovers
+                                            .slice(0, 5)
+                                            .map((stop, index) => (
+                                              <p
+                                                key={index}
+                                                style={{
+                                                  margin: "0",
+                                                  fontSize: "14px",
+                                                }}
+                                              >
+                                                Stop {index + 1}:{" "}
+                                                {stop.display_name} (
+                                                {stop.display_code})
+                                              </p>
+                                            ))}
+                                        </div>
+                                      )}
+                                    </div>
                                   </div>
-                                )}
-                              </div>
-                            </div>
 
-                            {/* Flight Timings */}
+                                  {/* Flight Timings */}
+                                  <div
+                                    className="flight-timings text-center"
+                                    style={{
+                                      display: "flex",
+                                      alignItems: "center",
+                                      justifyContent: "space-around",
+                                    }}
+                                  >
+                                    <div>
+                                      <strong>{departureTime}</strong>
+                                      <p>
+                                        {originPlace
+                                          ? originPlace.display_code
+                                          : "Unknown"}
+                                      </p>
+                                    </div>
+                                    <div
+                                      style={{
+                                        width: "100px",
+                                        height: "2px",
+                                        background: "black",
+                                      }}
+                                    ></div>
+                                    <div>
+                                      <strong>{arrivalTime}</strong>
+                                      <p>
+                                        {destinationPlace
+                                          ? destinationPlace.display_code
+                                          : "Unknown"}
+                                      </p>
+                                    </div>
+                                  </div>
+                                </Card.Body>
+                              );
+                            })}
+                          </div>
+                          <div
+                            className="price-container text-end"
+                            style={{
+                              backgroundColor: "white",
+                              border: "none",
+                              minWidth:"200px"
+                            }}
+                          >
                             <div
-                              className="flight-timings text-center"
                               style={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "space-around",
+                                fontSize: "20px",
+                                width: "100%",
+                                textAlign: "center",
                               }}
                             >
-                              <div>
-                                <strong>{departureTime}</strong>
-                                <p>
-                                  {originPlace
-                                    ? originPlace.display_code
-                                    : "Unknown"}
-                                </p>
-                              </div>
-                              <div
-                                style={{
-                                  width: "100px",
-                                  height: "2px",
-                                  background: "black",
-                                }}
-                              ></div>
-                              <div>
-                                <strong>{arrivalTime}</strong>
-                                <p>
-                                  {destinationPlace
-                                    ? destinationPlace.display_code
-                                    : "Unknown"}
-                                </p>
-                              </div>
+                              <strong>USD </strong>
+                              <strong>{priceAmount}</strong>
                             </div>
-
-                            {/* Price and Select Button */}
-                            <div
-                              className="price-container text-end"
-                              style={{
-                                backgroundColor: "white",
-                                border: "none",
-                              }}
+                            <Button
+                              variant="outline-primary"
+                              className="select-btn"
+                              onClick={handleUpdateRoute}
                             >
-                              <div
-                                style={{
-                                  fontSize: "20px",
-                                  width: "100%",
-                                  textAlign: "center",
-                                }}
-                              >
-                                <strong>USD </strong>
-                                <strong>{priceAmount}</strong>
-                              </div>
-                              <Button
-                                variant="outline-primary"
-                                className="select-btn"
-                                onClick={handleUpdateRoute}
-                              >
-                                Select this Departure &gt;
-                              </Button>
-                            </div>
-                          </Card.Body>
+                              Select this Departure &gt;
+                            </Button>
+                          </div>
                         </Card>
                       </Col>
                     );

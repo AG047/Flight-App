@@ -98,6 +98,10 @@
 .text-muted {
   color: #6c757d !important;
 }
+.flexFlightCard{
+  display: flex;
+  flex-direction: row;
+}
 
 /* Responsive Styles */
 @media (max-width: 991px) {
@@ -105,7 +109,7 @@
     display: none;
   }
 
-  .flight-info, .flight-timings, .price-container {
+ .flight-timings, .price-container {
     flex: 1;
     max-width: 100%;
     text-align: center;
@@ -131,6 +135,9 @@
 @media (max-width: 767px) {
   .flight-card {
     padding: 10px;
+  }
+  .flexFlightCard{
+    flex-direction: column;
   }
 
   .select-btn {
