@@ -1,5 +1,6 @@
 import React from "react";
 import { Navbar, Nav, Container, Row, Col, Dropdown } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 
 const HeaderWebsite = () => {
   return (
@@ -8,13 +9,15 @@ const HeaderWebsite = () => {
         <Row className="align-items-center">
           {/* Left Side: Logo and Tabs */}
           <Col md={4} xs={12} className="d-flex align-items-center">
-            <Navbar.Brand href="#">
-              <img
-                src="images/Frame 2.png"
-                alt="logo-img"
-                style={{ height: "60px", width: "140px" }}
-                className="img-fluid"
-              />
+            <Navbar.Brand>
+              <NavLink to="/">
+                <img
+                  src="images/Frame 2.png"
+                  alt="logo-img"
+                  style={{ height: "60px", width: "140px" }}
+                  className="img-fluid"
+                />
+              </NavLink>
             </Navbar.Brand>
             <Nav className="ms-3 d-none d-md-flex">
               <Nav.Link href="#" className="text-dark">

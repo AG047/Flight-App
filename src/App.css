@@ -215,7 +215,6 @@ optgroup {
   }
 }
 
-
 .title-text {
   background-color: #002144;
   height: 240px;
@@ -467,10 +466,10 @@ input {
   border-radius: 10px;
   box-sizing: border-box;
 }
-.justify-content-around{
+.justify-content-around {
   justify-content: space-around;
 }
-.justify-content-between{
+.justify-content-between {
   justify-content: space-between;
 }
 .airlines {
@@ -1474,5 +1473,11 @@ td {
   transform: scaleX(1); /* Expand to full width */
   cursor: pointer;
 }
-
+.blueLine {
+  width: 5px;
+  background: #006ee3;
+  border-radius: 25px;
+  height: 80px;
+  margin-right: 20px;
+}
 /* Optional: Change text color on hover */

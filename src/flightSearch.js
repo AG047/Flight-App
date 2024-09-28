@@ -13,7 +13,7 @@ import {
 } from "react-bootstrap";
 import "./flightSearch.css";
 import RoundTrip from "./roundtrip";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { APIKEY } from "./APIKEY";
 
 const FlightSearch = () => {
@@ -37,7 +37,10 @@ const FlightSearch = () => {
   };
   const [flights, setFlights] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const navigate = useNavigate();
+  const handleUpdateRoute = () => {
+    navigate("/flight-details");
+  };
   useEffect(() => {
     if (departure && arrival && departureDate) {
       const fetchFlights = async () => {
@@ -235,20 +238,57 @@ const FlightSearch = () => {
                       ? itinerary.cheapest_price.amount
                       : "N/A";
 
+                    const formatDuration = (duration) => {
+                      if (!duration) return "N/A"; // Handle case where duration is not provided
+
+                      const hours = Math.floor(duration / 60); // Calculate hours
+                      const minutes = duration % 60; // Calculate remaining minutes
+                      return `${hours} hour${
+                        hours !== 1 ? "s" : ""
+                      } ${minutes} minute${minutes !== 1 ? "s" : ""}`;
+                    };
+
+                    const stopovers = leg.stop_ids
+                      .map((stopIdArray) => {
+                        const stopId = stopIdArray[0]; // Get the first stop id from each array
+                        return flights.places.find(
+                          (place) => place.id === stopId
+                        );
+                      })
+                      .filter(Boolean); // Filter out any undefined values
                     return (
                       <Col sm={12} className="mb-4" key={index}>
                         <Card className="flight-card shadow-sm">
                           <Card.Body className="d-flex justify-content-between align-items-center">
                             {/* Flight Info */}
-                            <div className="flight-info">
-                              <h5>
-                                {carrier ? carrier.name : "Unknown Carrier"}
-                              </h5>
-                              <p className="text-muted">
-                                {leg.stop_count === 0
-                                  ? "Non Stop"
-                                  : `${leg.stop_count} Stop`}
-                              </p>
+                            <div className="flight-info d-flex">
+                              <div className="blueLine"></div>
+                              <div>
+                                <h5>
+                                  {carrier ? carrier.name : "Unknown Carrier"}
+                                </h5>
+                                <p className="text-muted">
+                                  {leg.stop_count === 0
+                                    ? "Non Stop"
+                                    : `${leg.stop_count} Stop`}
+                                </p>
+                                <p>{formatDuration(leg?.duration)}</p>
+                                {stopovers.length > 0 && (
+                                  <div>
+                                    {stopovers.slice(0, 5).map(
+                                      (
+                                        stop,
+                                        index // Limit to 5 stops
+                                      ) => (
+                                        <p key={index} style={{ margin: "0",fontSize:"14px" }}>
+                                          Stop {index + 1}: {stop.display_name}{" "}
+                                          ({stop.display_code})
+                                        </p>
+                                      )
+                                    )}
+                                  </div>
+                                )}
+                              </div>
                             </div>
 
                             {/* Flight Timings */}
@@ -293,13 +333,20 @@ const FlightSearch = () => {
                                 border: "none",
                               }}
                             >
-                              <div style={{ fontSize: "20px" }}>
+                              <div
+                                style={{
+                                  fontSize: "20px",
+                                  width: "100%",
+                                  textAlign: "center",
+                                }}
+                              >
                                 <strong>USD </strong>
                                 <strong>{priceAmount}</strong>
                               </div>
                               <Button
                                 variant="outline-primary"
                                 className="select-btn"
+                                onClick={handleUpdateRoute}
                               >
                                 Select this Departure &gt;
                               </Button>
