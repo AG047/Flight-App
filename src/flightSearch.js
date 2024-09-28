@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import HeaderWebsite from "./headerWebsite";
 import {
   Container,
@@ -12,15 +12,60 @@ import {
   ListGroup,
 } from "react-bootstrap";
 import "./flightSearch.css";
+import RoundTrip from "./roundtrip";
+import { useLocation } from "react-router-dom";
+import { APIKEY } from "./APIKEY";
 
 const FlightSearch = () => {
+  const location = useLocation();
+  const { departure, arrival, departureDate, returnDate, travellers } =
+    location.state || {};
+
+  const initialValues = {
+    departure,
+    arrival,
+    departureDate,
+    returnDate,
+    travellers,
+  };
+  const [flights, setFlights] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (departure && arrival && departureDate && returnDate) {
+      const fetchFlights = async () => {
+        setLoading(true);
+        try {
+          const apiUrl = `https://api.flightapi.io/roundtrip/66f1b2022110d7ada60a19c5/${
+            departure.split(" - ")[0]
+          }/${
+            arrival.split(" - ")[0]
+          }/${departureDate}/${returnDate}/${travellers}/0/0/Economy/USD`;
+
+          const response = await fetch(apiUrl);
+          const data = await response.json();
+          setFlights(data);
+          console.log(data);
+        } catch (error) {
+          console.error("Error fetching flight data:", error);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchFlights();
+    }
+  }, [departure, arrival, departureDate, returnDate, travellers]);
   return (
     <>
       <HeaderWebsite />
       <main>
         <Container fluid>
+          <div className="mb-5">
+            <RoundTrip initialValues={initialValues} />
+          </div>
+
           <Row>
-            {/* Sidebar Filter - Visible on larger screens */}
             <Col
               lg={3}
               className="filter-container d-none d-lg-block"
@@ -88,7 +133,6 @@ const FlightSearch = () => {
 
             {/* Main Flight Listings */}
             <Col lg={9}>
-              {/* Top Fare Options Section */}
               <div className="top-fare-table mb-4">
                 <Table responsive bordered className="shadow-sm">
                   <thead>
@@ -127,48 +171,136 @@ const FlightSearch = () => {
                   </tbody>
                 </Table>
               </div>
-
-              {/* Flight Listings */}
               <Row>
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((_, index) => (
-                  <Col sm={12} className="mb-4" key={index}>
-                    <Card className="flight-card shadow-sm">
-                      <Card.Body className="d-flex justify-content-between align-items-center">
-                        {/* Flight Info */}
-                        <div className="flight-info">
-                          <h5>United Airlines</h5>
-                          <p className="text-muted">2 Stops • 30h 22m</p>
-                          <p className="time">11:35pm • DEL</p>
-                        </div>
-
-                        {/* Flight Timings */}
-                        <div className="flight-timings text-center">
-                          <p className="time">11:35pm</p>
-                          <span>DEL - LAX</span>
-                        </div>
-
-                        {/* Price and Select Button */}
-                        <div
-                          className="price-container text-end "
-                          style={{ backgroundColor: "white", border: "none" }}
-                        >
-                          <h5 className="price">USD 1663</h5>
-                          <p className="text-muted">As low as $149</p>
-                          <p className="text-muted">
-                            Price per person (incl. taxes & fees)
-                          </p>
-                          <Button variant="warning" className="select-btn">
-                            Select &gt;
-                          </Button>
-                        </div>
-                      </Card.Body>
-                    </Card>
+                {loading ? ( // Conditional rendering based on loading state
+                  <Col sm={12} className="text-center">
+                    <div className="loader"></div>
                   </Col>
-                ))}
+                ) : flights?.legs?.length > 0 ? (
+                  flights?.legs?.map((leg, index) => {
+                    // Find the origin and destination place codes
+                    const originPlace = flights?.places.find(
+                      (place) => place.id === leg.origin_place_id
+                    );
+                    const destinationPlace = flights?.places.find(
+                      (place) => place.id === leg.destination_place_id
+                    );
+
+                    // Find the carrier name
+                    const carrier = flights?.carriers.find(
+                      (carrier) => carrier.id === leg.marketing_carrier_ids[0]
+                    );
+
+                    // Find the corresponding itinerary price
+                    const itinerary = flights?.itineraries.find((itin) =>
+                      itin.leg_ids.includes(leg.id)
+                    );
+                    console.log(itinerary, "itineraryitinerary");
+
+                    // Format departure and arrival times
+                    const departureTime = new Date(
+                      leg.departure
+                    ).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: true,
+                    });
+                    const arrivalTime = new Date(
+                      leg.arrival
+                    ).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: true,
+                    });
+
+                    // Calculate the price to display
+                    const priceAmount = itinerary
+                      ? itinerary.cheapest_price.amount
+                      : "N/A";
+
+                    return (
+                      <Col sm={12} className="mb-4" key={index}>
+                        <Card className="flight-card shadow-sm">
+                          <Card.Body className="d-flex justify-content-between align-items-center">
+                            {/* Flight Info */}
+                            <div className="flight-info">
+                              <h5>
+                                {carrier ? carrier.name : "Unknown Carrier"}
+                              </h5>
+                              <p className="text-muted">
+                                {leg.stop_count === 0
+                                  ? "Non Stop"
+                                  : `${leg.stop_count} Stop`}
+                              </p>
+                            </div>
+
+                            {/* Flight Timings */}
+                            <div
+                              className="flight-timings text-center"
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-around",
+                              }}
+                            >
+                              <div>
+                                <strong>{departureTime}</strong>
+                                <p>
+                                  {originPlace
+                                    ? originPlace.display_code
+                                    : "Unknown"}
+                                </p>
+                              </div>
+                              <div
+                                style={{
+                                  width: "100px",
+                                  height: "2px",
+                                  background: "black",
+                                }}
+                              ></div>
+                              <div>
+                                <strong>{arrivalTime}</strong>
+                                <p>
+                                  {destinationPlace
+                                    ? destinationPlace.display_code
+                                    : "Unknown"}
+                                </p>
+                              </div>
+                            </div>
+
+                            {/* Price and Select Button */}
+                            <div
+                              className="price-container text-end"
+                              style={{
+                                backgroundColor: "white",
+                                border: "none",
+                              }}
+                            >
+                              <div style={{ fontSize: "20px" }}>
+                                <strong>USD </strong>
+                                <strong>{priceAmount}</strong>
+                              </div>
+                              <Button
+                                variant="outline-primary"
+                                className="select-btn"
+                              >
+                                Select this Departure &gt;
+                              </Button>
+                            </div>
+                          </Card.Body>
+                        </Card>
+                      </Col>
+                    );
+                  })
+                ) : (
+                  <Col sm={12} className="text-center">
+                    <h5>No Flights for current search</h5>
+                  </Col>
+                )}
               </Row>
 
               {/* Pagination */}
-              <Pagination className="justify-content-center mt-4">
+              {/* <Pagination className="justify-content-center mt-4">
                 <Pagination.First />
                 <Pagination.Prev />
                 <Pagination.Item active>{1}</Pagination.Item>
@@ -177,7 +309,7 @@ const FlightSearch = () => {
                 <Pagination.Item>{4}</Pagination.Item>
                 <Pagination.Next />
                 <Pagination.Last />
-              </Pagination>
+              </Pagination> */}
             </Col>
           </Row>
         </Container>
