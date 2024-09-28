@@ -38,8 +38,8 @@ const FlightSearch = () => {
   const [flights, setFlights] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const handleUpdateRoute = () => {
-    navigate("/flight-details");
+  const handleUpdateRoute = (selectedFlight) => {
+    navigate("/flight-details", { state: { selectedFlight } });
   };
   useEffect(() => {
     if (departure && arrival && departureDate) {
@@ -209,10 +209,8 @@ const FlightSearch = () => {
 
                     return (
                       <Col sm={12} className="mb-4" key={index}>
-                        <Card
-                          className="flight-card shadow-sm flexFlightCard"
-                        >
-                          <div style={{width:"100%"}}>
+                        <Card className="flight-card shadow-sm flexFlightCard">
+                          <div style={{ width: "100%" }}>
                             {/* Render each leg in the itinerary */}
                             {itineraryLegs.map((leg, legIndex) => {
                               const originPlace = flights?.places.find(
@@ -259,7 +257,10 @@ const FlightSearch = () => {
                                   key={legIndex}
                                 >
                                   {/* Flight Info */}
-                                  <div className="flight-info" style={{display:"flex"}}>
+                                  <div
+                                    className="flight-info"
+                                    style={{ display: "flex" }}
+                                  >
                                     <div className="blueLine"></div>
                                     <div>
                                       <h5>
@@ -337,7 +338,7 @@ const FlightSearch = () => {
                             style={{
                               backgroundColor: "white",
                               border: "none",
-                              minWidth:"200px"
+                              minWidth: "200px",
                             }}
                           >
                             <div
@@ -353,7 +354,9 @@ const FlightSearch = () => {
                             <Button
                               variant="outline-primary"
                               className="select-btn"
-                              onClick={handleUpdateRoute}
+                              onClick={() =>
+                                handleUpdateRoute({ itinerary, priceAmount,flights })
+                              }
                             >
                               Select this Departure &gt;
                             </Button>

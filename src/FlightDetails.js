@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HeaderWebsite from "./headerWebsite";
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  Form,
-  Button,
-  ListGroup,
-} from "react-bootstrap";
+import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
 
 const FlightDetails = () => {
+  const location = useLocation();
+  const { selectedFlight } = location.state || {};
+
+  console.log("Selected Flight Data:", selectedFlight);
+
+  const priceAmount = selectedFlight?.priceAmount;
+  const formattedPriceAmount = priceAmount?.toFixed(2);
+  let [amountInwhole, amountInCents] = [0, 0];
+  if (formattedPriceAmount) {
+    [amountInwhole, amountInCents] = formattedPriceAmount?.split(".");
+  }
   const [traveler, setTraveler] = useState({
     firstName: "",
     middleName: "",
@@ -19,10 +23,90 @@ const FlightDetails = () => {
     gender: "",
     email: "",
   });
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setTraveler((prev) => ({ ...prev, [name]: value }));
   };
+
+  const formatDuration = (duration) => {
+    const hours = Math.floor(duration / 60);
+    const minutes = duration % 60;
+    return `${hours}h ${minutes}m`;
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleString("en-US", {
+      weekday: "short",
+      month: "short",
+      day: "2-digit",
+    });
+  };
+
+  // Extract flight data
+  const getFlightDetails = () => {
+    const itinerary = selectedFlight?.itinerary;
+    const legs = selectedFlight?.flights?.legs;
+    const segments = selectedFlight?.flights?.segments;
+    const places = selectedFlight?.flights?.places; // places is an array
+    const legData = legs?.filter((leg) => itinerary.leg_ids.includes(leg.id));
+
+    return legData?.map((leg, index) => {
+      // Find the origin and destination places using the leg's place IDs
+      const originPlace = places.find(
+        (place) => place.id === leg.origin_place_id
+      );
+      console.log(originPlace);
+      const destinationPlace = places.find(
+        (place) => place.id === leg.destination_place_id
+      );
+
+      const departureDate = formatDate(leg.departure);
+      const arrivalDate = formatDate(leg.arrival);
+      const duration = formatDuration(leg.duration); // duration in minutes
+      const stopsCount = leg.stop_count;
+
+      const flightSegment = segments.find((segment) =>
+        leg.segment_ids.includes(segment.id)
+      );
+      const marketingCarrier =
+        selectedFlight?.flights?.query?.marketing_carrier_ids?.find(
+          (carrierId) => carrierId === flightSegment.marketing_carrier_id
+        );
+      console.log(marketingCarrier, "marketingCarriermarketingCarrier");
+      const carrierId = flightSegment?.marketing_carrier_id;
+      const carrier = selectedFlight?.flights?.carriers.find(
+        (carrier) => carrier.id === carrierId
+      );
+      const carrierName = carrier ? carrier.name : "Unknown Carrier";
+
+      let stopoverPlaces = [];
+      if (leg.stop_ids.length > 0) {
+        stopoverPlaces = leg.stop_ids.flat().map((stopId) => {
+          const place = places.find((place) => place.id === stopId);
+          return place ? place.name : "Unknown Stop";
+        });
+      }
+
+      return {
+        origin: originPlace?.name, // Use the name property for display
+        originCode: originPlace?.display_code,
+        destination: destinationPlace?.name,
+        destinationCode: destinationPlace?.display_code,
+        departureDate,
+        arrivalDate,
+        duration,
+        stopsCount,
+        flightNumber: flightSegment.marketing_flight_number,
+        carrierName,
+        stopoverPlaces,
+      };
+    });
+  };
+
+  const flightDetails = getFlightDetails();
+  console.log(flightDetails, "flightDetails");
 
   return (
     <>
@@ -36,91 +120,60 @@ const FlightDetails = () => {
                   <h3 style={{ fontWeight: "600" }}>Flight Details</h3>
                 </Card.Header>
                 <Card.Body>
-                  <div>
-                    <p className="m-0">
-                      <strong style={{ fontSize: "20px" }}>
-                        New Delhi IGI to Dallas Fort Worth
-                      </strong>
-                      <span> - Tue, Oct 01</span>
-                    </p>
-                    <p className="">Travel Time: 22h 01m, 1 stop</p>
-                    <p>
-                      <strong style={{ fontSize: "20px" }}>
-                        11:30 pm --- 6:20 am
-                      </strong>
-                      <span>, Oct 02</span>
-                    </p>
-                    <p>
-                      {" "}
-                      <strong> DEL</strong> (New Delhi IGI) -{" "}
-                      <strong>JFK</strong> (New York Kennedy)
-                    </p>
-                    <p>
-                      <strong>Flight Time :</strong>
-                      16h 20m
-                    </p>
-                    <Row>
-                      <Col md={6}>
-                        <div>
-                          <strong>American Airlines</strong>
+                  {flightDetails?.map((flight, index) => (
+                    <div key={index}>
+                      <p className="m-0">
+                        <strong style={{ fontSize: "20px" }}>
+                          {flight.origin} to {flight.destination}
+                        </strong>
+                        <span> - {flight.departureDate}</span>
+                      </p>
+                      <p className="">
+                        Travel Time: {flight.duration},{" "}
+                        {flight.stopsCount > 0
+                          ? `${flight.stopsCount} stop`
+                          : "Non Stop"}
+                      </p>
+                      <p>
+                        <strong style={{ fontSize: "20px" }}>
+                          {flight.departureDate} --- {flight.arrivalDate}
+                        </strong>
+                      </p>
+                      <p>
+                        <strong> {flight.originCode} </strong> ({flight.origin})
+                        - <strong>{flight.destinationCode}</strong> (
+                        {flight.destination})
+                      </p>
+                      <p>
+                        <strong>Flight Time :</strong>
+                        {flight.duration}
+                      </p>
+                      <Row>
+                        <Col md={6}>
+                          <div>
+                            <strong>{flight.carrierName}</strong>
+                          </div>
+                          <div>Flight {flight.flightNumber}</div>
+                        </Col>
+                        <Col md={6}>
+                          <div>
+                            <strong>Cabin:</strong> Economy
+                          </div>
+                        </Col>
+                      </Row>
+                      {/* Add stopover details if any */}
+                      {flight.stopoverPlaces.length > 0 && (
+                        <div style={{ color: "#b28401" }} className="mt-4">
+                          {flight.stopoverPlaces.map((stop, idx) => (
+                            <div key={idx}>
+                              Stop {idx + 1}: {stop}
+                            </div>
+                          ))}
                         </div>
-                        <div>Flight 293 - Aircraft 77W</div>
-                      </Col>
-                      <Col md={6}>
-                        <div>
-                          <strong>Cabin:</strong> Coach
-                        </div>
-                        <div>
-                          <strong>Brand Name:</strong> Main
-                        </div>
-                      </Col>
-                    </Row>
-                  </div>
-
-                  <div style={{ color: "#b28401" }} className="mt-4">
-                    Stop 1 : 1h 40m in JFK (New York Kennedy)
-                  </div>
-
-                  <div className="mt-5">
-                    <p className="m-0">
-                      <strong style={{ fontSize: "20px" }}>
-                        New Delhi IGI to Dallas Fort Worth
-                      </strong>
-                      <span> - Tue, Oct 01</span>
-                    </p>
-                    <p className="">Travel Time: 22h 01m, 1 stop</p>
-                    <p>
-                      <strong style={{ fontSize: "20px" }}>
-                        11:30 pm --- 6:20 am
-                      </strong>
-                      <span>, Oct 02</span>
-                    </p>
-                    <p>
-                      {" "}
-                      <strong> DEL</strong> (New Delhi IGI) -{" "}
-                      <strong>JFK</strong> (New York Kennedy)
-                    </p>
-                    <p>
-                      <strong>Flight Time :</strong>
-                      16h 20m
-                    </p>
-                    <Row>
-                      <Col md={6}>
-                        <div>
-                          <strong>American Airlines</strong>
-                        </div>
-                        <div>Flight 293 - Aircraft 77W</div>
-                      </Col>
-                      <Col md={6}>
-                        <div>
-                          <strong>Cabin:</strong> Coach
-                        </div>
-                        <div>
-                          <strong>Brand Name:</strong> Main
-                        </div>
-                      </Col>
-                    </Row>
-                  </div>
+                      )}
+                      <div className="mt-5"></div>
+                    </div>
+                  ))}
                 </Card.Body>
               </Card>
               <Card>
@@ -137,38 +190,31 @@ const FlightDetails = () => {
                       onChange={handleInputChange}
                       required
                     />
-
                     <div className="d-flex mt-4 mb-4" style={{ gap: "20px" }}>
                       <Form.Control
                         type="text"
                         name="firstName"
                         placeholder="First Name"
-                        style={{ paddingTop: "25px", paddingBottom: "25px" }}
                         value={traveler.firstName}
                         onChange={handleInputChange}
                         required
                       />
-
                       <Form.Control
                         type="text"
                         name="middleName"
                         placeholder="Middle Name"
-                        style={{ paddingTop: "25px", paddingBottom: "25px" }}
                         value={traveler.middleName}
                         onChange={handleInputChange}
                       />
-
                       <Form.Control
                         type="text"
                         name="lastName"
                         placeholder="Last Name"
-                        style={{ paddingTop: "25px", paddingBottom: "25px" }}
                         value={traveler.lastName}
                         onChange={handleInputChange}
                         required
                       />
                     </div>
-                    {/* </Form.Row> */}
                     <div className="d-flex">
                       <div style={{ width: "50%" }}>
                         <Form.Label>Date of Birth</Form.Label>
@@ -229,22 +275,22 @@ const FlightDetails = () => {
                   <div className="d-flex justify-content-between mb-2">
                     <div>Adult</div>
                     <div>
-                      USD 1,363.<sup>44</sup>
+                      USD {amountInwhole}.<sup>{amountInCents}</sup>
                     </div>
                   </div>
-                  <div className="d-flex justify-content-between mb-2">
+                  {/* <div className="d-flex justify-content-between mb-2">
                     <div>Agency Fees</div>
                     <div>
                       USD 27.<sup>96</sup>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="d-flex justify-content-between mb-2">
                     <div>
                       <strong> Total Price (USD)</strong>
                     </div>
                     <div>
                       <strong>
-                        USD 1,391.<sup>40</sup>
+                        USD {amountInwhole}.<sup>{amountInCents}</sup>
                       </strong>
                     </div>
                   </div>
