@@ -49,6 +49,15 @@ const FlightSearch = () => {
   };
   const [showProgressBar, setShowProgressbar] = useState(false);
   const [showAirlineCarousel, setShowAirlineCarousel] = useState(true);
+  const [tripType, setTripType] = useState("Round-trip");
+  const [travelClass2, setTravelClass] = useState("Economy");
+
+  const showForm = (type) => {
+    setTripType(type);
+  };
+  const handleTravelClassChange = (e) => {
+    setTravelClass(e.target.value);
+  };
   const [flights, setFlights] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -65,6 +74,11 @@ const FlightSearch = () => {
   };
   useEffect(() => {
     setProgressTrue();
+  }, []);
+  useEffect(() => {
+    if (initialValues?.travelClass) {
+      setTravelClass(travelClass);
+    }
   }, []);
   useEffect(() => {
     if (departure && arrival && departureDate) {
@@ -90,7 +104,6 @@ const FlightSearch = () => {
               initialValues?.travelClass
             }/USD`;
           }
-          console.log(apiUrl, "apiUrl");
           const response = await fetch(apiUrl);
           const data = await response.json();
           setFlights(data);
@@ -121,14 +134,56 @@ const FlightSearch = () => {
               showAirlineCarousel && <AirlineCarousel />
             )}
             {!showAirlineCarousel && (
-              <RoundTrip
-                initialValues={initialValues}
-                isReturnDatePresent={initialValues.isReturnDatePresent}
-                customCSS={true}
-                adultsValue={adults}
-                childrenValue={children}
-                infantsValue={infants}
-              />
+              <>
+                {/* <div className="trip-type">
+                  <form className="trip-type-1">
+                    {["Round-trip", "One Way"].map((type, index) => (
+                      <div key={index}>
+                        <input
+                          style={{ marginRight: "4px" }}
+                          type="radio"
+                          id={`option${index + 1}`}
+                          name="choice"
+                          value={type}
+                          defaultChecked={tripType === type}
+                          onClick={() => showForm(type)}
+                        />
+                        <label htmlFor={`option${index + 1}`}>{type}</label>
+                      </div>
+                    ))}
+
+                    <Form.Select
+                      aria-label="Default select example"
+                      style={{ outline: "none", width: "auto", color: "blue" }}
+                      className="Customselect"
+                      value={travelClass2}
+                      onChange={handleTravelClassChange}
+                    >
+                      <option className="select-option" value="Economy">
+                        Economy
+                      </option>
+                      <option className="select-option" value="Business">
+                        Business
+                      </option>
+                      <option className="select-option" value="First">
+                        First
+                      </option>
+                      <option className="select-option" value="Premium_Economy">
+                        Premium Economy
+                      </option>
+                    </Form.Select>
+                  </form>
+                </div> */}
+                <RoundTrip
+                  initialValues={initialValues}
+                  isReturnDatePresent={initialValues.isReturnDatePresent}
+                  customCSS={true}
+                  adultsValue={adults}
+                  childrenValue={children}
+                  infantsValue={infants}
+                  travelClass={travelClass}
+                />
+              </>
             )}
           </div>
 

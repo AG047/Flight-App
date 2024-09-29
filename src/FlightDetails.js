@@ -7,8 +7,6 @@ const FlightDetails = () => {
   const location = useLocation();
   const { selectedFlight } = location.state || {};
 
-  console.log("Selected Flight Data:", selectedFlight);
-
   const priceAmount = selectedFlight?.priceAmount;
   const formattedPriceAmount = priceAmount?.toFixed(2);
   let [amountInwhole, amountInCents] = [0, 0];
@@ -57,7 +55,6 @@ const FlightDetails = () => {
       const originPlace = places.find(
         (place) => place.id === leg.origin_place_id
       );
-      console.log(originPlace);
       const destinationPlace = places.find(
         (place) => place.id === leg.destination_place_id
       );
@@ -74,7 +71,6 @@ const FlightDetails = () => {
         selectedFlight?.flights?.query?.marketing_carrier_ids?.find(
           (carrierId) => carrierId === flightSegment.marketing_carrier_id
         );
-      console.log(marketingCarrier, "marketingCarriermarketingCarrier");
       const carrierId = flightSegment?.marketing_carrier_id;
       const carrier = selectedFlight?.flights?.carriers.find(
         (carrier) => carrier.id === carrierId
@@ -106,7 +102,6 @@ const FlightDetails = () => {
   };
 
   const flightDetails = getFlightDetails();
-  console.log(flightDetails, "flightDetails");
 
   return (
     <>

@@ -20,7 +20,6 @@ const RoundTrip = ({
   childrenValue,
   infantsValue,
 }) => {
-  console.log(travelClass, "travelClasstravelClass");
   const [departure, setDeparture] = useState(initialValues?.departure || "");
   const [arrival, setArrival] = useState(initialValues?.arrival || "");
   const [departureDate, setDepartureDate] = useState(
@@ -135,7 +134,6 @@ const RoundTrip = ({
       return;
     }
     setErrorMessage("");
-    console.log({ departure, arrival, departureDate, returnDate, travellers });
     navigate("/flight-search", {
       state: {
         departure,
