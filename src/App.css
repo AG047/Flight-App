@@ -1474,6 +1474,7 @@ td {
 .fontSizeStops {
   margin: "0";
   font-size: 14px;
+  font-weight: 600;
 }
 /* Optional: Change text color on hover */
 .customBookNowWidth {
