@@ -18,8 +18,7 @@ const HeaderWebsite = () => {
     <header className="bg-white shadow-sm">
       <Container fluid>
         <Row
-          className="align-items-center"
-          style={{ justifyContent: "space-around" }}
+          className="align-items-center headerSmallScreen"
         >
           {/* Left Side: Logo */}
           <div className="align-items-center" style={{ display: "flex" }}>
@@ -94,7 +93,7 @@ const HeaderWebsite = () => {
           </div>
 
           {/* Call Us Section (Hidden on Small Screens) */}
-          <div className="d-none d-md-flex justify-content-center align-items-center">
+          <div className="d-none d-md-flex justify-content-center align-items-center customBookNowWidth">
             <div className="text-center">
               <span className="d-block book-now fw-bold">
                 Book Now - Call Us 24/7
@@ -106,7 +105,7 @@ const HeaderWebsite = () => {
           </div>
 
           {/* Sign In/Join and Language/Currency Dropdown (Hidden on Small Screens) */}
-          <div className="d-none d-md-flex justify-content-end align-items-center">
+          <div className="d-none d-md-flex justify-content-end align-items-center ms-auto mr-3">
             <Dropdown>
               <Dropdown.Toggle
                 id="dropdown-basic"
