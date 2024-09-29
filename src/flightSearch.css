@@ -144,3 +144,13 @@
     font-size: 0.9rem;
   }
 }
+@media (max-width: 400px) {
+  .fontsize12PxSmall{
+    font-size: 12px;
+  }
+}
+@media (max-width: 350px) {
+  .fontsize12PxSmall{
+    font-size: 10px;
+  }
+}

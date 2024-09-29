@@ -36,7 +36,7 @@ const TravelApp = () => {
 
           <div className="flight-panel" id="Flight-panel">
             <div className="trip-type">
-              <form className="trip-type-1">
+              <form className="trip-type-1" style={{width:"100%",justifyContent:"space-around"}}>
                 {/* {["Round-trip", "One Way", "Multi-City"].map((type, index) => ( */}
                 {["Round-trip", "One Way"].map((type, index) => (
                   <div key={index}>

@@ -11,7 +11,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { APIKEY } from "./APIKEY";
 
-const RoundTrip = ({ initialValues, isReturnDatePresent = true }) => {
+const RoundTrip = ({
+  initialValues,
+  isReturnDatePresent = true,
+  customCSS = false,
+}) => {
   const [departure, setDeparture] = useState(initialValues?.departure || "");
   const [arrival, setArrival] = useState(initialValues?.arrival || "");
   const [departureDate, setDepartureDate] = useState(
@@ -135,10 +139,15 @@ const RoundTrip = ({ initialValues, isReturnDatePresent = true }) => {
       <form
         className="d-flex flex-wrap align-items-center"
         onSubmit={handleFormSubmit}
-        style={{ gap: "6px", marginTop: "20px", padding: "0 10px" }}
+        style={{
+          gap: "3px",
+          marginTop: "20px",
+          padding: "10px",
+          paddingBottom: "20px",
+        }}
       >
         {/* Departure */}
-        <div className="position-relative">
+        <div className="position-relative customWidth">
           <FontAwesomeIcon
             icon={faLocationDot}
             className="position-absolute"
@@ -202,14 +211,14 @@ const RoundTrip = ({ initialValues, isReturnDatePresent = true }) => {
 
         {/* Swap Button */}
         <div
-          className="text-center"
+          className={`text-center  ${customCSS ? "rotateImageArrow2" : "rotateImageArrow"}`}
           style={{ width: "40px", fontSize: "20px", cursor: "pointer" }}
         >
           <FontAwesomeIcon icon={faArrowsAltH} />
         </div>
 
         {/* Arrival */}
-        <div className="position-relative">
+        <div className="position-relative customWidth">
           <FontAwesomeIcon
             icon={faLocationDot}
             className="position-absolute"
@@ -271,39 +280,12 @@ const RoundTrip = ({ initialValues, isReturnDatePresent = true }) => {
           </ul>
         </div>
 
-        {/* Departure Date */}
-        <div className="position-relative">
-          <FontAwesomeIcon
-            icon={faCalendar}
-            className="position-absolute"
-            style={{
-              left: "12px",
-              top: "50%",
-              transform: "translateY(-50%)",
-              color: "#333",
-            }}
-          />
-          <input
-            required
-            type="date"
-            value={departureDate}
-            onChange={(e) => setDepartureDate(e.target.value)}
-            className="form-control"
-            style={{
-              paddingLeft: "40px",
-              paddingRight: "10px",
-              minHeight: "48px",
-              borderRadius: "8px",
-              fontSize: "16px",
-              fontWeight: "500",
-              borderColor: "#ccc",
-            }}
-          />
-        </div>
-
-        {/* Return Date */}
-        {isReturnDatePresent && (
-          <div className="position-relative">
+        <div
+          style={{ display: "flex", gap: "6px" }}
+          className="customClassDatePick"
+        >
+          {/* Departure Date */}
+          <div className="position-relative inputDateWidth">
             <FontAwesomeIcon
               icon={faCalendar}
               className="position-absolute"
@@ -315,10 +297,10 @@ const RoundTrip = ({ initialValues, isReturnDatePresent = true }) => {
               }}
             />
             <input
+              required
               type="date"
-              required={isReturnDatePresent}
-              value={returnDate}
-              onChange={(e) => setReturnDate(e.target.value)}
+              value={departureDate}
+              onChange={(e) => setDepartureDate(e.target.value)}
               className="form-control"
               style={{
                 paddingLeft: "40px",
@@ -331,10 +313,42 @@ const RoundTrip = ({ initialValues, isReturnDatePresent = true }) => {
               }}
             />
           </div>
-        )}
+
+          {/* Return Date */}
+          {isReturnDatePresent && (
+            <div className="position-relative inputDateWidth">
+              <FontAwesomeIcon
+                icon={faCalendar}
+                className="position-absolute"
+                style={{
+                  left: "12px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  color: "#333",
+                }}
+              />
+              <input
+                type="date"
+                required={isReturnDatePresent}
+                value={returnDate}
+                onChange={(e) => setReturnDate(e.target.value)}
+                className="form-control"
+                style={{
+                  paddingLeft: "40px",
+                  paddingRight: "10px",
+                  minHeight: "48px",
+                  borderRadius: "8px",
+                  fontSize: "16px",
+                  fontWeight: "500",
+                  borderColor: "#ccc",
+                }}
+              />
+            </div>
+          )}
+        </div>
 
         {/* Travellers */}
-        <div className="position-relative">
+        <div className="position-relative customWidth">
           <FontAwesomeIcon
             icon={faUser}
             className="position-absolute"
@@ -364,15 +378,16 @@ const RoundTrip = ({ initialValues, isReturnDatePresent = true }) => {
             }}
           />
         </div>
-
-        <Button
-          type="submit"
-          variant="primary"
-          className="text-nowrap"
-          style={{ minHeight: "48px", padding: "0 30px" }}
-        >
-          Search
-        </Button>
+        <div className="customWidth">
+          <Button
+            type="submit"
+            variant="primary"
+            className="text-nowrap customWidth"
+            style={{ minHeight: "48px", padding: "0 30px" }}
+          >
+            Search
+          </Button>
+        </div>
       </form>
       {errorMessage && <div className="text-danger mb-2">{errorMessage}</div>}
     </div>

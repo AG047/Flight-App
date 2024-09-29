@@ -92,11 +92,6 @@ header {
     flex-direction: column; /* Stack elements vertically */
     align-items: flex-start; /* Align items to start */
   }
-
-  .book-now,
-  .number {
-    margin-bottom: 5px; /* Add margin between items */
-  }
 }
 
 .sm-text {
@@ -290,7 +285,6 @@ a.panel {
   display: flex;
   color: black;
   gap: 10px;
-  margin-left: 45px;
   font-size: 1rem;
   margin-top: 10px;
 }
@@ -1067,7 +1061,6 @@ td {
 }
 .text,
 .bookings,
-.flight-panel,
 .helpline,
 .explore,
 .trips {
@@ -1478,3 +1471,56 @@ td {
   margin-right: 20px;
 }
 /* Optional: Change text color on hover */
+
+@media (max-width: 767px) {
+  .title-text {
+    height: 270px;
+  }
+}
+@media (max-width: 577px) {
+  .width100 {
+    width: 100%;
+  }
+  .ml0 {
+    margin-left: 0 !important;
+  }
+  .rotateImageArrow {
+    transform: rotate(90deg);
+    position: absolute;
+    top: 107px;
+    z-index: 4;
+  }
+  .rotateImageArrow2 {
+    transform: rotate(90deg);
+    position: absolute;
+    top: 154px;
+    z-index: 4;
+  }
+  .inputDateWidth {
+    width: 49%;
+  }
+  .customWidth {
+    width: 100%;
+  }
+  .customClassDatePick {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+@media (max-width: 450px) {
+  .inputDateWidth {
+    width: 49%;
+  }
+  .customWidth {
+    width: 100%;
+  }
+  .customClassDatePick {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+@media (max-width: 400px) {
+  .title-text {
+    height: 400px;
+  }
+}

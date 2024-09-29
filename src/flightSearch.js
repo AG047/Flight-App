@@ -83,6 +83,7 @@ const FlightSearch = () => {
             <RoundTrip
               initialValues={initialValues}
               isReturnDatePresent={initialValues.isReturnDatePresent}
+              customCSS={true}
             />
           </div>
 
@@ -258,7 +259,7 @@ const FlightSearch = () => {
                                 >
                                   {/* Flight Info */}
                                   <div
-                                    className="flight-info"
+                                    className="flight-info width100 mb-4"
                                     style={{ display: "flex" }}
                                   >
                                     <div className="blueLine"></div>
@@ -298,7 +299,7 @@ const FlightSearch = () => {
 
                                   {/* Flight Timings */}
                                   <div
-                                    className="flight-timings text-center"
+                                    className="flight-timings width100 ml-4 ml0 text-center"
                                     style={{
                                       display: "flex",
                                       alignItems: "center",
