@@ -10,11 +10,15 @@ import {
   Table,
   Pagination,
   ListGroup,
+  ProgressBar,
 } from "react-bootstrap";
 import "./flightSearch.css";
 import RoundTrip from "./roundtrip";
 import { useLocation, useNavigate } from "react-router-dom";
 import { APIKEY } from "./APIKEY";
+import { AIRLINE } from "./Airline";
+import AirlineCarousel from "./components/AirlineCarousel";
+import useWindowWidth from "./components/useWindowWidth";
 
 const FlightSearch = () => {
   const location = useLocation();
@@ -35,16 +39,30 @@ const FlightSearch = () => {
     travellers,
     isReturnDatePresent,
   };
+  const [showProgressBar, setShowProgressbar] = useState(false);
+  const [showAirlineCarousel, setShowAirlineCarousel] = useState(true);
   const [flights, setFlights] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const width = useWindowWidth(); // Get the window width
+  const isSmallScreen = width <= 768;
   const handleUpdateRoute = (selectedFlight) => {
     navigate("/flight-details", { state: { selectedFlight } });
   };
+  const setProgressTrue = () => {
+    setTimeout(() => {
+      setShowProgressbar(true);
+      setShowAirlineCarousel(true);
+    }, 1000);
+  };
+  useEffect(() => {
+    setProgressTrue();
+  }, []);
   useEffect(() => {
     if (departure && arrival && departureDate) {
       const fetchFlights = async () => {
         setLoading(true);
+        setProgressTrue();
         try {
           let apiUrl;
           if (initialValues?.isReturnDatePresent) {
@@ -68,6 +86,8 @@ const FlightSearch = () => {
           console.error("Error fetching flight data:", error);
         } finally {
           setLoading(false);
+          setShowProgressbar(false);
+          setShowAirlineCarousel(false);
         }
       };
 
@@ -80,11 +100,19 @@ const FlightSearch = () => {
       <main>
         <Container fluid>
           <div className="mb-5">
-            <RoundTrip
+            {isSmallScreen ? (
+              <>
+                {showAirlineCarousel && <AirlineCarousel />}
+                {showProgressBar && <ProgressBar animated now={100} />}
+              </>
+            ) : (
+              showAirlineCarousel && <AirlineCarousel />
+            )}
+           {!showAirlineCarousel && <RoundTrip
               initialValues={initialValues}
               isReturnDatePresent={initialValues.isReturnDatePresent}
               customCSS={true}
-            />
+            />}
           </div>
 
           <Row>
@@ -153,46 +181,49 @@ const FlightSearch = () => {
               </div>
             </Col>
 
-            {/* Main Flight Listings */}
             <Col lg={9}>
-              <div className="top-fare-table mb-4">
-                <Table responsive bordered className="shadow-sm">
-                  <thead>
-                    <tr>
-                      <th>Show All Fares</th>
-                      <th>Best Fares</th>
-                      <th>Duration</th>
-                      <th>Stops</th>
-                      <th>Depart Time</th>
-                      <th>Arrival Time</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <Form.Check
-                          type="radio"
-                          name="fareOption"
-                          label="Show All"
-                          defaultChecked
-                        />
-                      </td>
-                      <td>
-                        <Form.Check
-                          type="radio"
-                          name="fareOption"
-                          label="Best Fares"
-                        />
-                      </td>
-                      <td>30h 22m</td>
-                      <td>1 Stop</td>
-                      <td>12:30 PM</td>
-                      <td>11:45 PM</td>
-                    </tr>
-                    {/* Add more rows if needed */}
-                  </tbody>
-                </Table>
-              </div>
+              {!showAirlineCarousel && (
+                <div className="top-fare-table mb-4">
+                  <Table responsive bordered className="shadow-sm">
+                    <thead>
+                      <tr>
+                        <th>Show All Fares</th>
+                        <th>Best Fares</th>
+                        <th>Duration</th>
+                        <th>Stops</th>
+                        <th>Depart Time</th>
+                        <th>Arrival Time</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <Form.Check
+                            type="radio"
+                            name="fareOption"
+                            label="Show All"
+                            defaultChecked
+                          />
+                        </td>
+                        <td>
+                          <Form.Check
+                            type="radio"
+                            name="fareOption"
+                            label="Best Fares"
+                          />
+                        </td>
+                        <td>30h 22m</td>
+                        <td>1 Stop</td>
+                        <td>12:30 PM</td>
+                        <td>11:45 PM</td>
+                      </tr>
+                      {/* Add more rows if needed */}
+                    </tbody>
+                  </Table>
+                </div>
+              )}
+
+              {/* {showProgressBar && <ProgressBar animated now={100} />} */}
               <Row>
                 {loading ? ( // Show loader if flights are still loading
                   <Col sm={12} className="text-center">
@@ -223,6 +254,10 @@ const FlightSearch = () => {
                               const carrier = flights?.carriers.find(
                                 (carrier) =>
                                   carrier.id === leg.marketing_carrier_ids[0]
+                              );
+                              const matchingAirline = AIRLINE.find(
+                                (airline) =>
+                                  airline.id === carrier?.display_code
                               );
                               const departureTime = new Date(
                                 leg.departure
@@ -264,20 +299,32 @@ const FlightSearch = () => {
                                   >
                                     <div className="blueLine"></div>
                                     <div className="smallScreenDisplay">
-                                      <div>
-                                        <h5>
-                                          {carrier
-                                            ? carrier.name
-                                            : "Unknown Carrier"}
-                                        </h5>
-                                        <p className="text-muted">
-                                          {leg.stop_count === 0
-                                            ? "Non Stop"
-                                            : `${leg.stop_count} Stop`}
-                                        </p>
+                                      <div style={{ display: "flex" }}>
+                                        <div>
+                                          <img
+                                            src={matchingAirline?.logo}
+                                            alt={carrier?.name || "Airline"}
+                                            style={{
+                                              width: "50px",
+                                              height: "50px",
+                                            }}
+                                          />
+                                        </div>
+                                        <div className="ml-3">
+                                          <h5>
+                                            {carrier
+                                              ? carrier.name
+                                              : "Unknown Carrier"}
+                                          </h5>
+                                          <p className="text-muted m-0">
+                                            {leg.stop_count === 0
+                                              ? "Non Stop"
+                                              : `${leg.stop_count} Stop`}
+                                          </p>
+                                          <p>{formatDuration(leg?.duration)}</p>
+                                        </div>
                                       </div>
                                       <div>
-                                        <p>{formatDuration(leg?.duration)}</p>
                                         {stopovers.length > 0 && (
                                           <div>
                                             {stopovers
@@ -285,7 +332,7 @@ const FlightSearch = () => {
                                               .map((stop, index) => (
                                                 <p
                                                   key={index}
-                                                  className="fontSizeStops"
+                                                  className="fontSizeStops m-0"
                                                 >
                                                   Stop {index + 1}:{" "}
                                                   {stop.display_name} (

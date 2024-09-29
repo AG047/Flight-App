@@ -194,6 +194,7 @@ optgroup {
   content: " ";
   display: block;
   width: 64px;
+  color: blue;
   height: 64px;
   margin: 8px;
   border-radius: 50%;
@@ -1476,7 +1477,10 @@ td {
   font-size: 14px;
   font-weight: 600;
 }
-/* Optional: Change text color on hover */
+.progress-bar-animated {
+  -webkit-animation: progress-bar-stripes 0.1s linear infinite;
+  animation: progress-bar-stripes 0.1s linear infinite;
+}
 .customBookNowWidth {
   width: 55%;
 }
