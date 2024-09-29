@@ -263,37 +263,38 @@ const FlightSearch = () => {
                                     style={{ display: "flex" }}
                                   >
                                     <div className="blueLine"></div>
-                                    <div>
-                                      <h5>
-                                        {carrier
-                                          ? carrier.name
-                                          : "Unknown Carrier"}
-                                      </h5>
-                                      <p className="text-muted">
-                                        {leg.stop_count === 0
-                                          ? "Non Stop"
-                                          : `${leg.stop_count} Stop`}
-                                      </p>
-                                      <p>{formatDuration(leg?.duration)}</p>
-                                      {stopovers.length > 0 && (
-                                        <div>
-                                          {stopovers
-                                            .slice(0, 5)
-                                            .map((stop, index) => (
-                                              <p
-                                                key={index}
-                                                style={{
-                                                  margin: "0",
-                                                  fontSize: "14px",
-                                                }}
-                                              >
-                                                Stop {index + 1}:{" "}
-                                                {stop.display_name} (
-                                                {stop.display_code})
-                                              </p>
-                                            ))}
-                                        </div>
-                                      )}
+                                    <div className="smallScreenDisplay">
+                                      <div>
+                                        <h5>
+                                          {carrier
+                                            ? carrier.name
+                                            : "Unknown Carrier"}
+                                        </h5>
+                                        <p className="text-muted">
+                                          {leg.stop_count === 0
+                                            ? "Non Stop"
+                                            : `${leg.stop_count} Stop`}
+                                        </p>
+                                      </div>
+                                      <div>
+                                        <p>{formatDuration(leg?.duration)}</p>
+                                        {stopovers.length > 0 && (
+                                          <div>
+                                            {stopovers
+                                              .slice(0, 5)
+                                              .map((stop, index) => (
+                                                <p
+                                                  key={index}
+                                                  className="fontSizeStops"
+                                                >
+                                                  Stop {index + 1}:{" "}
+                                                  {stop.display_name} (
+                                                  {stop.display_code})
+                                                </p>
+                                              ))}
+                                          </div>
+                                        )}
+                                      </div>
                                     </div>
                                   </div>
 
@@ -356,7 +357,11 @@ const FlightSearch = () => {
                               variant="outline-primary"
                               className="select-btn"
                               onClick={() =>
-                                handleUpdateRoute({ itinerary, priceAmount,flights })
+                                handleUpdateRoute({
+                                  itinerary,
+                                  priceAmount,
+                                  flights,
+                                })
                               }
                             >
                               Select this Departure &gt;

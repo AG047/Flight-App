@@ -1471,8 +1471,12 @@ td {
   height: 80px;
   margin-right: 20px;
 }
+.fontSizeStops {
+  margin: "0";
+  font-size: 14px;
+}
 /* Optional: Change text color on hover */
-.customBookNowWidth{
+.customBookNowWidth {
   width: 55%;
 }
 @media (max-width: 1052px) {
@@ -1527,13 +1531,24 @@ td {
     width: 100%;
     justify-content: space-between;
   }
+  .smallScreenDisplay {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .fontSizeStops {
+    margin: "0";
+    font-size: 12px;
+  }
 }
 @media (max-width: 450px) {
   .inputDateWidth {
     width: 49%;
+    margin-bottom: 8px;
   }
   .customWidth {
     width: 100%;
+    margin-bottom: 8px;
   }
   .customClassDatePick {
     width: 100%;
