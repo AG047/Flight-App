@@ -28,7 +28,11 @@ const FlightSearch = () => {
     departureDate,
     returnDate,
     travellers,
+    adults = 0,
+    children = 0,
+    infants = 0,
     isReturnDatePresent,
+    travelClass,
   } = location.state || {};
 
   const initialValues = {
@@ -37,7 +41,11 @@ const FlightSearch = () => {
     departureDate,
     returnDate,
     travellers,
+    adults,
+    children,
+    infants,
     isReturnDatePresent,
+    travelClass,
   };
   const [showProgressBar, setShowProgressbar] = useState(false);
   const [showAirlineCarousel, setShowAirlineCarousel] = useState(true);
@@ -68,15 +76,19 @@ const FlightSearch = () => {
           if (initialValues?.isReturnDatePresent) {
             apiUrl = `https://api.flightapi.io/roundtrip/${APIKEY}/${
               departure.split(" - ")[0]
-            }/${
-              arrival.split(" - ")[0]
-            }/${departureDate}/${returnDate}/${travellers}/0/0/Economy/USD`;
+            }/${arrival.split(" - ")[0]}/${departureDate}/${returnDate}/${
+              initialValues.adults
+            }/${initialValues.children}/${initialValues.infants}/${
+              initialValues?.travelClass
+            }/USD`;
           } else {
             apiUrl = `https://api.flightapi.io/onewaytrip/${APIKEY}/${
               departure.split(" - ")[0]
-            }/${
-              arrival.split(" - ")[0]
-            }/${departureDate}/${travellers}/0/0/Economy/USD`;
+            }/${arrival.split(" - ")[0]}/${departureDate}/${
+              initialValues.adults
+            }/${initialValues.children}/${initialValues.infants}/${
+              initialValues?.travelClass
+            }/USD`;
           }
           console.log(apiUrl, "apiUrl");
           const response = await fetch(apiUrl);
@@ -108,11 +120,16 @@ const FlightSearch = () => {
             ) : (
               showAirlineCarousel && <AirlineCarousel />
             )}
-           {!showAirlineCarousel && <RoundTrip
-              initialValues={initialValues}
-              isReturnDatePresent={initialValues.isReturnDatePresent}
-              customCSS={true}
-            />}
+            {!showAirlineCarousel && (
+              <RoundTrip
+                initialValues={initialValues}
+                isReturnDatePresent={initialValues.isReturnDatePresent}
+                customCSS={true}
+                adultsValue={adults}
+                childrenValue={children}
+                infantsValue={infants}
+              />
+            )}
           </div>
 
           <Row>

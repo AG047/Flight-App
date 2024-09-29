@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import React, { useState } from "react";
 import HeaderWebsite from "./headerWebsite";
 import RoundTrip from "./roundtrip";
@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 
 const TravelApp = () => {
   const [tripType, setTripType] = useState("Round-trip");
+  const [travelClass, setTravelClass] = useState("Economy");
   const [departure, setDeparture] = useState("");
   const [arrival, setArrival] = useState("");
   const [departureDate, setDepartureDate] = useState("");
@@ -15,7 +16,9 @@ const TravelApp = () => {
   const showForm = (type) => {
     setTripType(type);
   };
-
+  const handleTravelClassChange = (e) => {
+    setTravelClass(e.target.value);
+  };
 
   return (
     <>
@@ -52,13 +55,41 @@ const TravelApp = () => {
                     <label htmlFor={`option${index + 1}`}>{type}</label>
                   </div>
                 ))}
+
+                <Form.Select
+                  aria-label="Default select example"
+                  style={{ outline: "none", width: "auto", color: "blue" }}
+                  className="Customselect"
+                  value={travelClass}
+                  onChange={handleTravelClassChange}
+                >
+                  <option className="select-option" value="Economy">
+                    Economy
+                  </option>
+                  <option className="select-option" value="Business">
+                    Business
+                  </option>
+                  <option className="select-option" value="First">
+                    First
+                  </option>
+                  <option className="select-option" value="Premium_Economy">
+                    Premium Economy
+                  </option>
+                </Form.Select>
               </form>
             </div>
-            {tripType === "Round-trip" && <RoundTrip />}
-            {tripType === "One Way" && (
-              <RoundTrip isReturnDatePresent={false} />
+            {tripType === "Round-trip" && (
+              <RoundTrip travelClass={travelClass} />
             )}
-            {tripType === "Multi-City" && <RoundTrip />}
+            {tripType === "One Way" && (
+              <RoundTrip
+                isReturnDatePresent={false}
+                travelClass={travelClass}
+              />
+            )}
+            {tripType === "Multi-City" && (
+              <RoundTrip travelClass={travelClass} />
+            )}
           </div>
           <div className="helpline">
             <div className="helpline-text">

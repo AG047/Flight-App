@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Button, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlane,
@@ -15,7 +15,12 @@ const RoundTrip = ({
   initialValues,
   isReturnDatePresent = true,
   customCSS = false,
+  travelClass = "Economy",
+  adultsValue,
+  childrenValue,
+  infantsValue,
 }) => {
+  console.log(travelClass, "travelClasstravelClass");
   const [departure, setDeparture] = useState(initialValues?.departure || "");
   const [arrival, setArrival] = useState(initialValues?.arrival || "");
   const [departureDate, setDepartureDate] = useState(
@@ -23,13 +28,17 @@ const RoundTrip = ({
   );
   const [returnDate, setReturnDate] = useState(initialValues?.returnDate || "");
   const [travellers, setTravellers] = useState(initialValues?.travellers || 1);
+  const [adults, setAdults] = useState(adultsValue || 2); // Default 2 adults
+  const [children, setChildren] = useState(childrenValue || 0);
+  const [infants, setInfants] = useState(infantsValue || 0);
   const [filteredDepartures, setFilteredDepartures] = useState([]);
   const [filteredArrivals, setFilteredArrivals] = useState([]);
   const [debounceTimer, setDebounceTimer] = useState(null);
   const [loadingDeparture, setLoadingDeparture] = useState(false);
   const [loadingArrival, setLoadingArrival] = useState(false);
   const [errorMessage, setErrorMessage] = useState(""); // State for error messages
-
+  const dropdownRef = useRef(null);
+  const totalTravellers = adults + children + infants;
   const navigate = useNavigate();
   useEffect(() => {
     if (initialValues) {
@@ -40,6 +49,11 @@ const RoundTrip = ({
       setTravellers(initialValues.travellers);
     }
   }, [initialValues]);
+  const handleDoneClick = () => {
+    setTravellers(totalTravellers);
+    // Close the dropdown
+    dropdownRef.current.click(); // Programmatically close the dropdown
+  };
   const debounceFetch = (value, type) => {
     if (debounceTimer) clearTimeout(debounceTimer);
 
@@ -129,7 +143,11 @@ const RoundTrip = ({
         departureDate,
         returnDate,
         travellers,
+        adults,
+        children,
+        infants,
         isReturnDatePresent,
+        travelClass,
       },
     });
   };
@@ -211,7 +229,9 @@ const RoundTrip = ({
 
         {/* Swap Button */}
         <div
-          className={`text-center  ${customCSS ? "rotateImageArrow2" : "rotateImageArrow"}`}
+          className={`text-center  ${
+            customCSS ? "rotateImageArrow2" : "rotateImageArrow"
+          }`}
           style={{ width: "40px", fontSize: "20px", cursor: "pointer" }}
         >
           <FontAwesomeIcon icon={faArrowsAltH} />
@@ -348,7 +368,7 @@ const RoundTrip = ({
         </div>
 
         {/* Travellers */}
-        <div className="position-relative customWidth">
+        {/* <div className="position-relative customWidth">
           <FontAwesomeIcon
             icon={faUser}
             className="position-absolute"
@@ -377,7 +397,88 @@ const RoundTrip = ({
               borderColor: "#ccc",
             }}
           />
+        </div> */}
+        <div className="position-relative customWidth">
+          <Dropdown style={{ height: "48px" }}>
+            <Dropdown.Toggle
+              className="form-control"
+              style={{ color: "black", background: "white", height: "100%" }}
+              ref={dropdownRef}
+            >
+              <FontAwesomeIcon icon={faUser} />
+              {totalTravellers} Travelers
+            </Dropdown.Toggle>
+            <Dropdown.Menu className="p-3">
+              <div className="traveller-count">
+                <div
+                  style={{ display: "flex" }}
+                  className=" justify-content-between align-items-center mb-2"
+                >
+                  <span>Adults</span>
+                  <div style={{ display: "flex" }} className="">
+                    <Button
+                      variant="outline-secondary"
+                      onClick={() => setAdults(Math.max(adults - 1, 1))}
+                    >
+                      -
+                    </Button>
+                    <span className="mx-2">{adults}</span>
+                    <Button
+                      variant="outline-secondary"
+                      onClick={() => setAdults(adults + 1)}
+                    >
+                      +
+                    </Button>
+                  </div>
+                </div>
+                <div
+                  style={{ display: "flex" }}
+                  className=" justify-content-between align-items-center mb-2"
+                >
+                  <span>Children</span>
+                  <div style={{ display: "flex" }} className="">
+                    <Button
+                      variant="outline-secondary"
+                      onClick={() => setChildren(Math.max(children - 1, 0))}
+                    >
+                      -
+                    </Button>
+                    <span className="mx-2">{children}</span>
+                    <Button
+                      variant="outline-secondary"
+                      onClick={() => setChildren(children + 1)}
+                    >
+                      +
+                    </Button>
+                  </div>
+                </div>
+                <div
+                  style={{ display: "flex" }}
+                  className=" justify-content-between align-items-center mb-2"
+                >
+                  <span>Infants</span>
+                  <div style={{ display: "flex" }} className="">
+                    <Button
+                      variant="outline-secondary"
+                      onClick={() => setInfants(Math.max(infants - 1, 0))}
+                    >
+                      -
+                    </Button>
+                    <span className="mx-2">{infants}</span>
+                    <Button
+                      variant="outline-secondary"
+                      onClick={() => setInfants(infants + 1)}
+                    >
+                      +
+                    </Button>
+                  </div>
+                </div>
+              </div>
+              <Button onClick={handleDoneClick}>Done</Button>
+            </Dropdown.Menu>
+          </Dropdown>
         </div>
+
         <div className="customWidth">
           <Button
             type="submit"

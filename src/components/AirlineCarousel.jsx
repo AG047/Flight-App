@@ -21,7 +21,7 @@ const AirlineCarousel = () => {
       <Carousel
         indicators={false}
         controls={false}
-        interval={2000}
+        interval={1000}
         pause={false}
       >
         {shuffledAirlines.map((airlineItem, index) => (

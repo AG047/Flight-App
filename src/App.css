@@ -285,6 +285,7 @@ a.panel {
 .trip-type-1 {
   display: flex;
   color: black;
+  flex-wrap: wrap;
   gap: 10px;
   font-size: 1rem;
   margin-top: 10px;
@@ -1484,6 +1485,28 @@ td {
 .customBookNowWidth {
   width: 55%;
 }
+.Customselect {
+  border: 0;
+  box-shadow: none;
+}
+.Customselect option {
+  color: grey;
+}
+
+.Customselect option:hover {
+  background-color: #f0f0f0 !important;
+  background: #f0f0f0 !important;
+}
+
+.Customselect option:checked {
+  background-color: #bcd9f8;
+  color: #006ee3;
+}
+
+.Customselect option[selected] {
+  color: blue;
+}
+
 @media (max-width: 1052px) {
   .customBookNowWidth {
     width: 50%;
@@ -1564,4 +1587,12 @@ td {
   .title-text {
     height: 400px;
   }
+}
+
+@media (max-width: 392px) {
+
+  .rotateImageArrow {
+    top: 150px;
+  }
+
 }

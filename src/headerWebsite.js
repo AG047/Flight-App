@@ -48,7 +48,7 @@ const HeaderWebsite = () => {
                 >
                   <svg
                     aria-hidden="true"
-                    class="me-2"
+                    className="me-2"
                     focusable="false"
                     data-prefix="fas"
                     data-icon="phone-volume"
