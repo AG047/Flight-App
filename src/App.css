@@ -1568,6 +1568,9 @@ td {
     margin: "0";
     font-size: 12px;
   }
+  .text2{
+    font-size: 20px;
+  }
 }
 @media (max-width: 450px) {
   .inputDateWidth {

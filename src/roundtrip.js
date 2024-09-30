@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Dropdown } from "react-bootstrap";
+import { Button, Dropdown, Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "./roundtrip.css";
 import {
   faPlane,
   faLocationDot,
   faArrowsAltH,
   faUser,
   faCalendar,
+  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { APIKEY } from "./APIKEY";
 
@@ -27,7 +29,7 @@ const RoundTrip = ({
   );
   const [returnDate, setReturnDate] = useState(initialValues?.returnDate || "");
   const [travellers, setTravellers] = useState(initialValues?.travellers || 1);
-  const [adults, setAdults] = useState(adultsValue || 2); // Default 2 adults
+  const [adults, setAdults] = useState(adultsValue || 1); // Default 2 adults
   const [children, setChildren] = useState(childrenValue || 0);
   const [infants, setInfants] = useState(infantsValue || 0);
   const [filteredDepartures, setFilteredDepartures] = useState([]);
@@ -35,7 +37,12 @@ const RoundTrip = ({
   const [debounceTimer, setDebounceTimer] = useState(null);
   const [loadingDeparture, setLoadingDeparture] = useState(false);
   const [loadingArrival, setLoadingArrival] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(""); // State for error messages
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showDepartureModal, setShowDepartureModal] = useState(false);
+  const [showArrivalModal, setShowArrivalModal] = useState(false);
+  const [showDepartureDateModal, setShowDepartureDateModal] = useState(false);
+  const [showArrivalDateModal, setShowArrivalDateModal] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 550);
   const dropdownRef = useRef(null);
   const totalTravellers = adults + children + infants;
   const navigate = useNavigate();
@@ -48,6 +55,15 @@ const RoundTrip = ({
       setTravellers(initialValues.travellers);
     }
   }, [initialValues]);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 550);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   const handleDoneClick = () => {
     setTravellers(totalTravellers);
     // Close the dropdown
@@ -152,6 +168,287 @@ const RoundTrip = ({
 
   return (
     <div>
+      <Modal
+        show={showDepartureModal}
+        onHide={() => setShowDepartureModal(false)}
+        size="lg"
+        style={{ height: "100vh" }}
+      >
+        <Modal.Header>
+          <Modal.Title>Select Departure Airport</Modal.Title>
+          {/* Custom Close Button */}
+          <button
+            type="button"
+            className="close"
+            onClick={() => setShowDepartureModal(false)}
+            style={{
+              border: "none",
+              background: "transparent",
+              cursor: "pointer",
+              marginLeft: "auto",
+            }}
+          >
+            <FontAwesomeIcon icon={faTimes} style={{ fontSize: "1.5rem" }} />
+          </button>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="position-relative">
+            <FontAwesomeIcon
+              icon={faLocationDot}
+              className="position-absolute"
+              style={{
+                left: "12px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                color: "#333",
+              }}
+            />
+            <input
+              type="text"
+              value={departure}
+              onChange={handleDepartureChange}
+              placeholder="Departure"
+              required
+              className="form-control"
+              style={{
+                paddingLeft: "40px",
+                paddingRight: "10px",
+                minHeight: "48px",
+                borderRadius: "8px",
+                fontSize: "16px",
+                fontWeight: "500",
+                borderColor: "#ccc",
+              }}
+            />
+            {filteredDepartures.length > 0 && (
+              <ul className="suggestions-dropdown" id="suggestion">
+                {filteredDepartures.map((airport, index) => (
+                  <li
+                    key={index}
+                    onClick={() => {
+                      setDeparture(
+                        `${airport.iata || airport.fs} - ${airport.name}`
+                      );
+                      setFilteredDepartures([]);
+                      setShowDepartureModal(false); // Close modal after selection
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      icon={faPlane}
+                      style={{ marginRight: "8px" }}
+                    />
+                    {airport.iata || airport.fs} - {airport.name}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+          {loadingDeparture && (
+            <ul className="suggestions-dropdown">
+              <li className="loader"></li>
+            </ul>
+          )}
+        </Modal.Body>
+      </Modal>
+
+      <Modal
+        show={showArrivalModal}
+        onHide={() => setShowArrivalModal(false)}
+        size="lg"
+        style={{ height: "100vh" }}
+      >
+        <Modal.Header>
+          <Modal.Title>Select Arrival Airport</Modal.Title>
+          {/* Custom Close Button */}
+          <button
+            type="button"
+            className="close"
+            onClick={() => setShowArrivalModal(false)}
+            style={{
+              border: "none",
+              background: "transparent",
+              cursor: "pointer",
+              marginLeft: "auto",
+            }}
+          >
+            <FontAwesomeIcon icon={faTimes} style={{ fontSize: "1.5rem" }} />
+          </button>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="position-relative">
+            <FontAwesomeIcon
+              icon={faLocationDot}
+              className="position-absolute"
+              style={{
+                left: "12px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                color: "#333",
+              }}
+            />
+            <input
+              type="text"
+              value={arrival}
+              onChange={handleArrivalChange}
+              placeholder="Arrival"
+              required
+              className="form-control"
+              style={{
+                paddingLeft: "40px",
+                paddingRight: "10px",
+                minHeight: "48px",
+                borderRadius: "8px",
+                fontSize: "16px",
+                fontWeight: "500",
+                borderColor: "#ccc",
+              }}
+            />
+            {filteredArrivals.length > 0 && (
+              <ul className="suggestions-dropdown" id="suggestion">
+                {filteredArrivals.map((airport, index) => (
+                  <li
+                    key={index}
+                    onClick={() => {
+                      setArrival(
+                        `${airport.iata || airport.fs} - ${airport.name}`
+                      );
+                      setFilteredArrivals([]);
+                      setShowArrivalModal(false); // Close modal after selection
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      icon={faPlane}
+                      style={{ marginRight: "8px" }}
+                    />
+                    {airport.iata || airport.fs} - {airport.name}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+          {loadingArrival && (
+            <ul className="suggestions-dropdown">
+              <li className="loader"></li>
+            </ul>
+          )}
+        </Modal.Body>
+      </Modal>
+
+      <Modal
+        show={showDepartureDateModal}
+        onHide={() => setShowDepartureDateModal(false)}
+        size="lg"
+        style={{ height: "100vh" }}
+      >
+        <Modal.Header>
+          <Modal.Title>Select Departure Date</Modal.Title>
+          {/* Custom Close Button */}
+          <button
+            type="button"
+            className="close"
+            onClick={() => setShowDepartureDateModal(false)}
+            style={{
+              border: "none",
+              background: "transparent",
+              cursor: "pointer",
+              marginLeft: "auto",
+            }}
+          >
+            <FontAwesomeIcon icon={faTimes} style={{ fontSize: "1.5rem" }} />
+          </button>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="position-relative inputDateWidth">
+            <FontAwesomeIcon
+              icon={faCalendar}
+              className="position-absolute"
+              style={{
+                left: "12px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                color: "#333",
+              }}
+            />
+            <input
+              required
+              type="date"
+              value={departureDate}
+              onChange={(e) => {
+                setDepartureDate(e.target.value);
+                setShowDepartureDateModal(false);
+              }}
+              className="form-control"
+              style={{
+                paddingLeft: "40px",
+                paddingRight: "10px",
+                minHeight: "48px",
+                borderRadius: "8px",
+                fontSize: "16px",
+                fontWeight: "500",
+                borderColor: "#ccc",
+              }}
+            />
+          </div>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        show={showArrivalDateModal}
+        onHide={() => setShowArrivalDateModal(false)}
+        size="lg"
+        style={{ height: "100vh" }}
+      >
+        <Modal.Header>
+          <Modal.Title>Select Arrival Date</Modal.Title>
+          {/* Custom Close Button */}
+          <button
+            type="button"
+            className="close"
+            onClick={() => setShowArrivalDateModal(false)}
+            style={{
+              border: "none",
+              background: "transparent",
+              cursor: "pointer",
+              marginLeft: "auto",
+            }}
+          >
+            <FontAwesomeIcon icon={faTimes} style={{ fontSize: "1.5rem" }} />
+          </button>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="position-relative inputDateWidth">
+            <FontAwesomeIcon
+              icon={faCalendar}
+              className="position-absolute"
+              style={{
+                left: "12px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                color: "#333",
+              }}
+            />
+            <input
+              required
+              type="date"
+              value={returnDate}
+              onChange={(e) => {
+                setReturnDate(e.target.value);
+                setShowArrivalDateModal(false);
+              }}
+              className="form-control"
+              style={{
+                paddingLeft: "40px",
+                paddingRight: "10px",
+                minHeight: "48px",
+                borderRadius: "8px",
+                fontSize: "16px",
+                fontWeight: "500",
+                borderColor: "#ccc",
+              }}
+            />
+          </div>
+        </Modal.Body>
+      </Modal>
+
       <form
         className="d-flex flex-wrap align-items-center"
         onSubmit={handleFormSubmit}
@@ -164,6 +461,12 @@ const RoundTrip = ({
       >
         {/* Departure */}
         <div className="position-relative customWidth">
+          {isSmallScreen && (
+            <div
+              style={{ position: "absolute", width: "100%", height: "100%" }}
+              onClick={() => setShowDepartureModal(true)}
+            ></div>
+          )}
           <FontAwesomeIcon
             icon={faLocationDot}
             className="position-absolute"
@@ -237,6 +540,12 @@ const RoundTrip = ({
 
         {/* Arrival */}
         <div className="position-relative customWidth">
+          {isSmallScreen && (
+            <div
+              style={{ position: "absolute", width: "100%", height: "100%" }}
+              onClick={() => setShowArrivalModal(true)}
+            ></div>
+          )}
           <FontAwesomeIcon
             icon={faLocationDot}
             className="position-absolute"
@@ -251,7 +560,7 @@ const RoundTrip = ({
             type="text"
             value={arrival}
             onChange={handleArrivalChange}
-            placeholder="Anywhere"
+            placeholder="Arrival"
             required
             className="form-control"
             style={{
@@ -304,6 +613,12 @@ const RoundTrip = ({
         >
           {/* Departure Date */}
           <div className="position-relative inputDateWidth">
+            {isSmallScreen && (
+              <div
+                style={{ position: "absolute", width: "100%", height: "100%" }}
+                onClick={() => setShowDepartureDateModal(true)}
+              ></div>
+            )}
             <FontAwesomeIcon
               icon={faCalendar}
               className="position-absolute"
@@ -335,6 +650,16 @@ const RoundTrip = ({
           {/* Return Date */}
           {isReturnDatePresent && (
             <div className="position-relative inputDateWidth">
+              {isSmallScreen && (
+                <div
+                  style={{
+                    position: "absolute",
+                    width: "100%",
+                    height: "100%",
+                  }}
+                  onClick={() => setShowArrivalDateModal(true)}
+                ></div>
+              )}
               <FontAwesomeIcon
                 icon={faCalendar}
                 className="position-absolute"
@@ -404,7 +729,7 @@ const RoundTrip = ({
               ref={dropdownRef}
             >
               <FontAwesomeIcon icon={faUser} />
-              {totalTravellers} Travelers
+              <span className="ml-2">{totalTravellers} Travelers</span>
             </Dropdown.Toggle>
             <Dropdown.Menu className="p-3">
               <div className="traveller-count">
@@ -413,7 +738,7 @@ const RoundTrip = ({
                   className=" justify-content-between align-items-center mb-2"
                 >
                   <span>Adults</span>
-                  <div style={{ display: "flex" }} className="">
+                  <div style={{ display: "flex",alignItems:"center" }} className="">
                     <Button
                       variant="outline-secondary"
                       onClick={() => setAdults(Math.max(adults - 1, 1))}
@@ -434,7 +759,7 @@ const RoundTrip = ({
                   className=" justify-content-between align-items-center mb-2"
                 >
                   <span>Children</span>
-                  <div style={{ display: "flex" }} className="">
+                  <div style={{ display: "flex",alignItems:"center" }} className="">
                     <Button
                       variant="outline-secondary"
                       onClick={() => setChildren(Math.max(children - 1, 0))}
@@ -455,7 +780,7 @@ const RoundTrip = ({
                   className=" justify-content-between align-items-center mb-2"
                 >
                   <span>Infants</span>
-                  <div style={{ display: "flex" }} className="">
+                  <div style={{ display: "flex",alignItems:"center" }} className="">
                     <Button
                       variant="outline-secondary"
                       onClick={() => setInfants(Math.max(infants - 1, 0))}
